@@ -9,10 +9,7 @@ class Depoimento extends Model
 {
     use HasFactory;
      // Definindo os atributos que podem ser atribuídos em massa
-     protected $fillable = [
-        'cliente_id',
-        'mensagem',
-    ];
+     protected $guarded = ['id'];
 
     // Relação com o modelo Cliente
     public function cliente()

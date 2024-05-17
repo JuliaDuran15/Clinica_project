@@ -9,10 +9,7 @@ class InformacaoPaciente extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'cliente_id',
-        'informacoes',
-    ];
+    protected $guarded = ['id'];
 
     // Relação com o modelo Cliente
     public function cliente()
