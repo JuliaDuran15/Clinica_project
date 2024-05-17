@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+use App\Models\Cliente;
+use App\Models\Psicologa;
+
 
 class RegisteredUserController extends Controller
 {
@@ -38,15 +41,30 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => 'required|in:cliente,secretária,psicóloga',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role, 
         ]);
 
         event(new Registered($user));
+
+         // Condicional para criar um registro de Cliente ou Psicologa
+    if ($user->role == 'cliente') {
+        Cliente::create([
+            'user_id' => $user->id,
+        ]);
+    }
+
+    if ($user->role == 'psicóloga') { // Certifique-se de que a condição verifica o role correto
+        Psicologa::create([
+            'user_id' => $user->id,
+        ]);
+    }
 
         Auth::login($user);
 

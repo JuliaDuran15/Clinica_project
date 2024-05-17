@@ -12,6 +12,7 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        role: '', 
     });
 
     useEffect(() => {
@@ -98,6 +99,26 @@ export default function Register() {
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
                 </div>
+
+                <div className="mt-4">
+    <InputLabel forInput="role" value="Role" />
+
+    <select
+        name="role"
+        value={data.role}
+        onChange={onHandleChange}
+        className="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+        required
+    >
+        <option value="">Select Role</option>
+        <option value="cliente">Cliente</option>
+        <option value="secretária">Secretária</option>
+        <option value="psicóloga">Psicóloga</option>
+    </select>
+
+    <InputError message={errors.role} className="mt-2" />
+</div>
+
 
                 <div className="flex items-center justify-end mt-4">
                     <Link href={route('login')} className="underline text-sm text-gray-600 hover:text-gray-900">
