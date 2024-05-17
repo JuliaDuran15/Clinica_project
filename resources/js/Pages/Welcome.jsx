@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, Head } from '@inertiajs/inertia-react';
+import psicoImage from '../../../public/psico.jpg';
+
 
 export default function ClinicWelcome(props) {
     return (
@@ -11,7 +13,7 @@ export default function ClinicWelcome(props) {
                         <div>
                             {props.auth.user ? (
                                 <Link href={route('dashboard')} className="text-sm text-gray-800 pr-4">
-                                    Dashboard
+                                    Consultas +
                                 </Link>
                             ) : (
                                 <>
@@ -37,36 +39,40 @@ export default function ClinicWelcome(props) {
                     <div className="text-center">
                         <h1 className="text-2xl font-bold text-indigo-500">Welcome to Our Health Clinic</h1>
                     </div>
+                    <div className='items-center mt-12 space-y-8 '>
+                    <img src={psicoImage} alt="Descrição da Imagem" className="rounded-image:5%" />
+                     </div>
 
                     <div className="mt-12 space-y-8">
                         <section id="services" className="text-center">
-                            <h2 className="text-xl font-semibold text-indigo-500">Our Services</h2>
-                            <p className="mt-4 text-gray-600">
-                                From general practice to specialized health services, our clinic is equipped to handle your health needs.
+                            <h2 class="text-xl font-semibold text-indigo-500">Nossos Serviços</h2>
+                            <p class="mt-4 text-gray-600">
+                            Nossa clínica de psicologia está preparada para oferecer uma ampla variedade de serviços terapêuticos, adaptados às necessidades individuais de cada paciente. Contamos com especialistas em psicoterapia cognitivo-comportamental, psicanálise, terapia sistêmica, terapia de aceitação e compromisso, e muito mais. Seja enfrentando desafios emocionais, transtornos de ansiedade, depressão ou necessidades de terapia de casal e familiar, nossa equipe está pronta para auxiliar no seu processo de cura e autoconhecimento.
                             </p>
                         </section>
 
-                        <section id="about" className="text-center">
-                            <h2 className="text-xl font-semibold text-indigo-500">Why Choose Us?</h2>
-                            <p className="mt-4 text-gray-600">
-                                We combine cutting-edge technology with a compassionate approach to patient care that makes a difference.
+                        <section id="about" class="text-center">
+                            <h2 class="text-xl font-semibold text-indigo-500">Por Que Escolher a Nossa Clínica?</h2>
+                            <p class="mt-4 text-gray-600">
+                            Em nossa clínica, abraçamos uma abordagem holística e personalizada para o tratamento psicológico. Nosso objetivo é entender profundamente as necessidades de cada paciente e aplicar a melhor estratégia terapêutica para seu desenvolvimento e bem-estar. Combinamos métodos tradicionais e inovadores, garantindo um ambiente seguro e acolhedor, onde cada indivíduo pode explorar suas emoções e superar suas dificuldades com total suporte e discrição.
                             </p>
                         </section>
 
-                        <section id="testimonials" className="text-center">
-                            <h2 className="text-xl font-semibold text-indigo-500">Patient Testimonials</h2>
-                            <p className="mt-4 text-gray-600">
-                                "I have never felt more cared for and understood by a healthcare provider. Absolutely recommend this clinic!"
+                        <section id="testimonials" class="text-center">
+                            <h2 class="text-xl font-semibold text-indigo-500">Depoimentos de Pacientes</h2>
+                            <p class="mt-4 text-gray-600">
+                            "Nunca me senti tão compreendido e apoiado. A terapia transformou minha vida e recomendo esta clínica a todos que buscam paz e equilíbrio emocional." Descubra mais histórias de sucesso e transformações pessoais alcançadas através do nosso trabalho dedicado e especializado.
                             </p>
                         </section>
 
-                        <section id="contact" className="text-center">
-                            <h2 className="text-xl font-semibold text-indigo-500">Contact Us</h2>
-                            <p className="mt-4 text-gray-600">
-                                If you have any questions or need assistance, please reach out. We’re here to help.
+                        <section id="contact" class="text-center">
+                            <h2 class="text-xl font-semibold text-indigo-500">Contate-nos</h2>
+                            <p class="mt-4 text-gray-600">
+                                Se você tem qualquer dúvida ou precisa de assistência, não hesite em entrar em contato. Estamos aqui para ajudar e garantir que sua experiência conosco seja a melhor possível. Nosso time está disponível para atendê-lo tanto por telefone quanto por e-mail.
                             </p>
                             <div className="mt-6">
                                 <form action="/submit-form" method="post" className="space-y-4">
+                                <input type="hidden" name="_token" value={props.csrf_token} />
                                     <input type="text" name="name" placeholder="Your Name" required className="border p-2 w-full"/>
                                     <input type="email" name="email" placeholder="Your Email" required className="border p-2 w-full"/>
                                     <textarea name="message" placeholder="Your Message" className="border p-2 w-full"></textarea>

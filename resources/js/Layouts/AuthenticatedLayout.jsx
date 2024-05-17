@@ -4,6 +4,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/inertia-react';
+import logoImage from '../../../public/logo.jpg';
 
 export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -16,8 +17,7 @@ export default function Authenticated({ auth, header, children }) {
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto text-gray-500" />
-                                    <h1>logo</h1>
+                                <img src={logoImage}  height="60px" width="60px" />
                                 </Link>
                             </div>
 
@@ -26,6 +26,12 @@ export default function Authenticated({ auth, header, children }) {
                                     Clinica_Num
                                 </NavLink>
                             </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                Consultas
+                                </NavLink>
+                            </div>
+                            
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
