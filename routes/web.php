@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use Inertia\Inertia;
+use App\Http\Controllers\ClienteController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +34,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+// Rotas para gerenciamento de clientes
+Route::resource('clientes', ClienteController::class)->middleware(['auth']);
 
 
