@@ -41,10 +41,6 @@ composer require laravel/breeze
 ```
 
 ```sh
-php artisan breeze:install react
-```
-
-```sh
 php artisan migrate
 ```
 
