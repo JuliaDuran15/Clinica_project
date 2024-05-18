@@ -37,10 +37,6 @@ composer install
 ```
 
 ```sh
-composer require laravel/breeze
-```
-
-```sh
 php artisan migrate
 ```
 
