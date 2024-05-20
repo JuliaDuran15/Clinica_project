@@ -8,7 +8,7 @@ export default function Guest({ children }) {
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <Link href="/">
-                <img src={logoImage}  height="160px" width="160px" />
+                <img src={logoImage} height="160px" width="160px" style={{ borderRadius: "15%", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)" }}/>
 
                 </Link>
             </div>

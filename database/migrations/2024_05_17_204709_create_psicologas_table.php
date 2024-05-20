@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('psicologas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('nome')->nullable();
             $table->string('especializacao')->nullable();
             $table->text('horario_disponivel')->nullable();
             $table->string('phone_number')->nullable();

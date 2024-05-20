@@ -19,4 +19,10 @@ class Psicologa extends Model
     public function agendamentos() {
         return $this->hasMany(Agendamento::class);
     }
+
+    protected static function booted() {
+        static::deleted(function ($psicologa) {
+            $psicologa->user->delete();
+        });
+    }
 }

@@ -11,16 +11,6 @@ class Cliente extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = [
-        'user_id',
-        'phone_number',
-        'rua',
-        'cep',
-        'bairro',
-        'localidade',
-        'uf'
-    ];
-
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -39,4 +29,9 @@ class Cliente extends Model
         return $this->hasOne(InformacaoPaciente::class);
     }
 
+    protected static function booted() {
+        static::deleted(function ($cliente) {
+            $cliente->user->delete();
+        });
+    }
 }

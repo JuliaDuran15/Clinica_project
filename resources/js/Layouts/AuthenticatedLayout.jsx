@@ -17,7 +17,7 @@ export default function Authenticated({ auth, header, children }) {
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                <img src={logoImage}  height="60px" width="60px" />
+                                <img src={logoImage}  height="60px" width="60px" border-radius="15%" />
                                 </Link>
                             </div>
 
@@ -31,6 +31,11 @@ export default function Authenticated({ auth, header, children }) {
                                 Consultas
                                 </NavLink>
                             </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"></div>
+                            <NavLink href={route('clientes')} active={route().current('clientes')}>
+                                Pacientes
+                            </NavLink>
+
                             
                         </div>
 
