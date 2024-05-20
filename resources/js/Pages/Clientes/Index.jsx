@@ -23,7 +23,7 @@ export default function Index(props) {
         
     >
         <div className="max-w-6xl mx-auto p-8 bg-white shadow-lg rounded-lg">
-            <h1 className="text-2xl font-semibold text-gray-800 mb-6">Clientes</h1>
+            <h1 className="text-2xl font-semibold text-gray-800 mb-6">Paciente</h1>
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50">

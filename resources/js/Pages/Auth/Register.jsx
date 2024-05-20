@@ -111,7 +111,7 @@ export default function Register() {
         required
     >
         <option value="">Select Role</option>
-        <option value="cliente">Cliente</option>
+        <option value="cliente">Paciente</option>
         <option value="secretária">Secretária</option>
         <option value="psicóloga">Psicóloga</option>
     </select>
