@@ -57,12 +57,14 @@ class RegisteredUserController extends Controller
     if ($user->role == 'cliente') {
         Cliente::create([
             'user_id' => $user->id,
+            'nome' => $request->name,
         ]);
     }
 
     if ($user->role == 'psicóloga') { // Certifique-se de que a condição verifica o role correto
         Psicologa::create([
             'user_id' => $user->id,
+            'nome' => $resquest->name,
         ]);
     }
 

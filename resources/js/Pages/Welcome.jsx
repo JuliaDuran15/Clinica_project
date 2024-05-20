@@ -39,8 +39,8 @@ export default function ClinicWelcome(props) {
                     <div className="text-center">
                         <h1 className="text-2xl font-bold text-indigo-500">Welcome to Our Health Clinic</h1>
                     </div>
-                    <div className='items-center mt-12 space-y-8 '>
-                    <img src={psicoImage} alt="Descrição da Imagem" className="rounded-image:5%" />
+                    <div className="flex justify-center mt-10 space-y-3">
+                    <img src={psicoImage} alt="Descrição da Imagem"   className="rounded-lg shadow-lg" style={{  width: "50%" }}/>
                      </div>
 
                     <div className="mt-12 space-y-8">
@@ -73,10 +73,10 @@ export default function ClinicWelcome(props) {
                             <div className="mt-6">
                                 <form action="/submit-form" method="post" className="space-y-4">
                                 <input type="hidden" name="_token" value={props.csrf_token} />
-                                    <input type="text" name="name" placeholder="Your Name" required className="border p-2 w-full"/>
-                                    <input type="email" name="email" placeholder="Your Email" required className="border p-2 w-full"/>
-                                    <textarea name="message" placeholder="Your Message" className="border p-2 w-full"></textarea>
-                                    <button type="submit" className="mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">
+                                    <input type="text" name="name" placeholder="Your Name" required className="border p-2 rounded-lg w-full"/>
+                                    <input type="email" name="email" placeholder="Your Email" required className="border p-2 rounded-lg w-full"/>
+                                    <textarea name="message" placeholder="Your Message" className="border p-2 w-full rounded-lg"></textarea>
+                                    <button type="submit" className="mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg  w-full">
                                         Send Message
                                     </button>
                                 </form>

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use Inertia\Inertia;
 use App\Http\Controllers\ClienteController;
-
+use App\Http\Controllers\DepoimentoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,13 +29,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::get('/depoimentos', [DepoimentoController::class, 'index'])->name('depoimentos');
+
+    // Rotas para gerenciamento de clientes
+    // Especificar apenas as rotas que você está realmente usando.
+    Route::resource('clientes', ClienteController::class)->except(['show', 'create', 'store']);
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes');
+});
 
 require __DIR__.'/auth.php';
-
-// Rotas para gerenciamento de clientes
-Route::resource('clientes', ClienteController::class)->middleware(['auth']);
-
-

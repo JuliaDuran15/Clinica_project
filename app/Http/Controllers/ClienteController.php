@@ -38,28 +38,24 @@ class ClienteController extends Controller
     }
 
     public function edit($id)
-    {
-        $cliente = Cliente::findOrFail($id);
-        return Inertia::render('Clientes/Edit', ['cliente' => $cliente]);
+{
+    $cliente = Cliente::find($id);
+    if (!$cliente) {
+        abort(404);
     }
+    return Inertia::render('Clientes/Edit', ['cliente' => $cliente]);
+}
+public function destroy($id)
+{
+    $cliente = Cliente::findOrFail($id);
+    $cliente->delete();
+    return redirect()->route('clientes.index');
+}
 
-    public function update(Request $request, $id)
-    {
-        $validated = $request->validate([
-            // Adicione regras de validação aqui
-        ]);
-
-        $cliente = Cliente::findOrFail($id);
-        $cliente->update($validated);
-
-        return Redirect::route('clientes.index')->with('success', 'Cliente atualizado com sucesso.');
-    }
-
-    public function destroy($id)
-    {
-        $cliente = Cliente::findOrFail($id);
-        $cliente->delete();
-
-        return Redirect::route('clientes.index')->with('success', 'Cliente deletado com sucesso.');
-    }
+public function update(Request $request, $id)
+{
+    $cliente = Cliente::findOrFail($id);
+    $cliente->update($request->all());
+    return redirect()->route('clientes.index');
+}
 }
