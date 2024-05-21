@@ -23,8 +23,11 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@react-pdf/renderer": "^3.4.4",
         "@syncfusion/ej2-react-documenteditor": "^25.2.5",
+        "file-saver": "^2.0.5",
         "jspdf": "^2.5.1",
+        "pdf-lib": "^1.17.1",
         "react-devtools": "^5.2.0",
         "react-quill": "^2.0.0"
     }

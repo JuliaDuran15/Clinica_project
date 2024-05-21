@@ -31,15 +31,21 @@ export default function Authenticated({ auth, header, children }) {
                                 Consultas
                                 </NavLink>
                             </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"></div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <NavLink href={route('clientes')} active={route().current('clientes')}>
                                 Pacientes
                             </NavLink>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"></div>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <NavLink href={route('psicologas')} active={route().current('psicologas')}>
                                 Doutores
                             </NavLink>
-
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <NavLink href={route('documents')} active={route().current('documents')}>
+                            Documentos
+                            </NavLink>
+                            </div>
                             
                         </div>
 

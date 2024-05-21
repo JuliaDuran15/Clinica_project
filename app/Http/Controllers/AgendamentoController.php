@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Agendamento;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+
 
 class AgendamentoController extends Controller
 {
