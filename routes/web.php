@@ -6,7 +6,8 @@ use App\Http\Controllers\ContactController;
 use Inertia\Inertia;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DepoimentoController;
-
+use App\Http\Controllers\PsicologaController; 
+use App\Http\Controllers\AgendamentoController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +41,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Especificar apenas as rotas que você está realmente usando.
     Route::resource('clientes', ClienteController::class)->except(['show', 'create', 'store']);
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes');
+
+     
+    Route::resource('psicologas', PsicologaController::class);
+    Route::get('/psicologas', [PsicologaController::class, 'index'])->name('psicologas');
+
+    Route::resource('agendamentos', AgendamentoController::class);
+
+    // routes/web.php
+
+      Route::get('/meus-agendamentos', [AgendamentoController::class, 'meusAgendamentos'])
+     ->name('meus-agendamentos');
+
 });
 
 require __DIR__.'/auth.php';
