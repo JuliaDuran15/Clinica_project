@@ -112,8 +112,8 @@ export default function Register() {
     >
         <option value="">Select Role</option>
         <option value="cliente">Paciente</option>
-        <option value="secretária">Secretária</option>
-        <option value="psicóloga">Psicóloga</option>
+        <option value="secretaria">Secretária</option>
+        <option value="psicologa">Psicóloga</option>
     </select>
 
     <InputError message={errors.role} className="mt-2" />

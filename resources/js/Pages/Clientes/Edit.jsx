@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Inertia } from '@inertiajs/inertia';
+import InputMask from 'react-input-mask';
+
 
 export default function Edit({ cliente }) {
     const [nome, setNome] = useState(cliente.nome);
-    const [phoneNumber, setPhoneNumber] = useState(cliente.phone_number);
+    const [phoneNumber, setPhoneNumber] = useState(cliente.phone_number || '');
     const [rua, setRua] = useState(cliente.rua);
-    const [cep, setCep] = useState(cliente.cep);
+    const [cep, setCep] = useState(cliente.cep || '');
     const [bairro, setBairro] = useState(cliente.bairro);
     const [localidade, setLocalidade] = useState(cliente.localidade);
     const [uf, setUf] = useState(cliente.uf);
+
+    useEffect(() => {
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.erro) {
+                        console.error('CEP não encontrado');
+                    } else {
+                        setRua(data.logradouro);
+                        setBairro(data.bairro);
+                        setLocalidade(data.localidade);
+                        setUf(data.uf);
+                    }
+                })
+                .catch(error => console.error('Erro ao buscar CEP:', error));
+        }
+    }, [cep]);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -41,12 +61,12 @@ export default function Edit({ cliente }) {
                 <div className="col-span-2 sm:col-span-1">
                     <label className="block text-sm font-medium text-gray-700">
                         Telefone
-                        <input
-                            type="text"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        />
+                        <InputMask
+                    mask="(99) 99999-9999"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
                     </label>
                 </div>
                 <div className="col-span-2">

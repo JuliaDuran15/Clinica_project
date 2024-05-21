@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => 'required|in:cliente,secretária,psicóloga',
+            'role' => 'required|in:cliente,secretaria,psicologa',
         ]);
 
         $user = User::create([
@@ -61,7 +61,7 @@ class RegisteredUserController extends Controller
         ]);
     }
 
-    if ($user->role == 'psicóloga') { // Certifique-se de que a condição verifica o role correto
+    if ($user->role == 'psicologa') { // Certifique-se de que a condição verifica o role correto
         Psicologa::create([
             'user_id' => $user->id,
             'nome' => $user->name,
