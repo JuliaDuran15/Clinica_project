@@ -56,6 +56,6 @@ public function update(Request $request, $id)
 {
     $cliente = Cliente::findOrFail($id);
     $cliente->update($request->all());
-    return redirect()->route('clientes.index');
+    return Redirect::route('clientes')->with('success', 'Psicóloga atualizada com sucesso.');
 }
 }

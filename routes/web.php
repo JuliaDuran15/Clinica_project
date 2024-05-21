@@ -7,7 +7,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DepoimentoController;
 use App\Http\Controllers\PsicologaController; 
-use App\Http\Controllers\AgendamentoController; 
+use App\Http\Controllers\AgendamentoController;
+use App\Http\Controllers\DocumentController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +54,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
       Route::get('/meus-agendamentos', [AgendamentoController::class, 'meusAgendamentos'])
      ->name('meus-agendamentos');
 
+     
+Route::get('/documents', [DocumentController::class, 'show'])->name('documents.show');
+Route::post('/documents', [DocumentController::class, 'update'])->name('documents.update');
+
+
 });
+
+Route::get('/editor', [PageController::class, 'show']);
+
 
 require __DIR__.'/auth.php';

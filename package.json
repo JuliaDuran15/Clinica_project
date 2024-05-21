@@ -23,6 +23,9 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "react-devtools": "^5.2.0"
+        "@syncfusion/ej2-react-documenteditor": "^25.2.5",
+        "jspdf": "^2.5.1",
+        "react-devtools": "^5.2.0",
+        "react-quill": "^2.0.0"
     }
 }
