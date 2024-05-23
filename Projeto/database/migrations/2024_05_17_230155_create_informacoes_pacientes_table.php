@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('informacoes_pacientes', function (Blueprint $table) {
+        Schema::create('informacao_pacientes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained()->onDelete('cascade'); // Referencia a tabela clientes
             $table->text('informacoes'); // Campo para armazenar informações detalhadas

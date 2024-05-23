@@ -37,6 +37,18 @@ class DatabaseSeeder extends Seeder
             'nome' => $userCliente->name,
         ]);
 
+        $userCliente = User::create([
+            'name' => 'Thayna Aquino',
+            'email' => 'thayaquino@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'cliente',
+        ]);
+        Cliente::create([
+            'user_id' => $userCliente->id,
+            'nome' => $userCliente->name,
+        ]);
+
+
         // Criação de um usuário com o role 'psicologa' e registro correspondente em Psicologa
         $userPsicologa = User::create([
             'name' => 'Ana Lucia',

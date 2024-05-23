@@ -9,7 +9,7 @@ use App\Http\Controllers\DepoimentoController;
 use App\Http\Controllers\PsicologaController;
 use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\DocumentController;
-
+use App\Http\Controllers\InformacaoPacienteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,8 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    // Rotas para Depoimentos
     Route::get('/depoimentos', [DepoimentoController::class, 'index'])->name('depoimentos');
-    
+    Route::post('/depoimentos', [DepoimentoController::class, 'store']);
     // Rotas para gerenciamento de clientes
     Route::resource('clientes', ClienteController::class)->except(['show', 'create', 'store']);
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes');
@@ -49,6 +50,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('agendamentos', AgendamentoController::class);
     Route::get('/meus-agendamentos', [AgendamentoController::class, 'meusAgendamentos'])
          ->name('meus-agendamentos');
+
+         Route::get('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'edit'])
+         ->name('informacoes.edit');
+
+    // Rota para atualizar as informações do paciente
+    Route::post('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'update'])
+         ->name('informacoes.update');
     
     // routes/web.php
 Route::get('/documents', function () {
