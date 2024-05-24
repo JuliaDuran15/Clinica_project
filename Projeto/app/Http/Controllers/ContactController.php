@@ -1,26 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
 
 class ContactController extends Controller
 {
-    public function send(Request $request)
+    public function sendEmail(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
+        $request->validate([
             'email' => 'required|email',
-            'message' => 'required',
+            'subject' => 'required|string',
+            'message' => 'required|string',
         ]);
+// cria um array e passa as informacoes pra esse array
+        $details = [
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ];
 
-        Mail::send([], [], function ($message) use ($validatedData) {
-            $message->to('destino@example.com') // Altere para o e-mail de destino
-                   ->subject('New Contact Message')
-                   ->from($validatedData['email'], $validatedData['name'])
-                   ->setBody($validatedData['message'], 'text/plain');
-        });
+        Mail::to('recipient@example.com')->send(new ContactMail($details));
 
-        return back()->with('success', 'Thank you for your message!');
+        return response()->json(['message' => 'Email sent successfully']);
     }
 }
