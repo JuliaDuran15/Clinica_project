@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, usePage  } from '@inertiajs/inertia-react';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import Dropdown from '@/Components/Dropdown';
@@ -8,6 +8,7 @@ import logoImage from '../../../public/logo.jpg';
 
 export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -24,21 +25,31 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                                <NavLink href={route('agendamentos.index')} active={route().current('agendamentos.index')}>
-                                    Consultas
-                                </NavLink>
-                                <NavLink href={route('clientes')} active={route().current('clientes')}>
-                                    Pacientes
-                                </NavLink>
-                                <NavLink href={route('psicologas')} active={route().current('psicologas')}>
-                                    Doutores
-                                </NavLink>
-                                <NavLink href={route('documents')} active={route().current('documents')}>
-                                    Documentos
-                                </NavLink>
+                                {auth.user && auth.user.role === 'secretaria' && (
+                                    <NavLink href={route('agendamentos.index')} active={route().current('agendamentos.index')}>
+                                        Consultas
+                                    </NavLink>
+                                )}
+                                {auth.user && auth.user.role !== 'cliente' && (
+                                    <NavLink href={route('clientes')} active={route().current('clientes')}>
+                                        Pacientes
+                                    </NavLink>
+                                )}
+                                {auth.user && auth.user.role !== 'psicologa' && (
+                                    <NavLink href={route('psicologas')} active={route().current('psicologas')}>
+                                        Doutores
+                                    </NavLink>
+                                )}
+                                {auth.user && auth.user.role === 'psicologa' && (
+                                    <NavLink href={route('documents')} active={route().current('documents')}>
+                                        Documentos
+                                    </NavLink>
+                                )}
+                                {auth.user && auth.user.role === 'cliente' && (
                                 <NavLink href={route('depoimentos')} active={route().current('depoimentos')}>
                                     Depoimentos
                                 </NavLink>
+                                )}
                             </div>
                         </div>
 
@@ -68,6 +79,12 @@ export default function Authenticated({ auth, header, children }) {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
+                                    {auth.user && auth.user.role === 'cliente' && (
+                                        <Dropdown.Link href={route('minhas-infos')}>
+                                            Minhas Infos
+                                        </Dropdown.Link>
+                                    )}
+                                   
                                     <Dropdown.Link href={route('logout')} method="post" as="button">
                                         Log Out
                                     </Dropdown.Link>
@@ -107,21 +124,41 @@ export default function Authenticated({ auth, header, children }) {
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
+                        {auth.user && auth.user.role === 'secretaria' && (
+                        
                         <ResponsiveNavLink href={route('agendamentos.index')} active={route().current('agendamentos.index')}>
                             Consultas
                         </ResponsiveNavLink>
+                        )}
+                        {auth.user && auth.user.role !== 'cliente' && (
                         <ResponsiveNavLink href={route('clientes')} active={route().current('clientes')}>
                             Pacientes
                         </ResponsiveNavLink>
+                        )}
+                        {auth.user && auth.user.role !== 'psicologa' && (
                         <ResponsiveNavLink href={route('psicologas')} active={route().current('psicologas')}>
                             Doutores
                         </ResponsiveNavLink>
+                        )}
+                        {auth.user && auth.user.role === 'psicologa' && (
                         <ResponsiveNavLink href={route('documents')} active={route().current('documents')}>
                             Documentos
                         </ResponsiveNavLink>
+                        )} 
+                        {auth.user && auth.user.role === 'cliente' && (
                         <ResponsiveNavLink href={route('depoimentos')} active={route().current('depoimentos')}>
                             Depoimentos
                         </ResponsiveNavLink>
+                        )}
+                          {auth.user && auth.user.role === 'cliente' && (
+                                        <Dropdown.Link href={route('minhas-infos')}>
+                                            Minhas Infos
+                                        </Dropdown.Link>
+                                    )}
+
+                          <Dropdown.Link href={route('logout')} method="post" as="button">
+                                        Log Out
+                                    </Dropdown.Link>
                     </div>
                 </div>
             </nav>

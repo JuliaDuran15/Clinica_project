@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import InputMask from 'react-input-mask';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 
-export default function Edit({ cliente }) {
+export default function Edit({ cliente, auth, errors  }) {
     const [nome, setNome] = useState(cliente.nome);
     const [phoneNumber, setPhoneNumber] = useState(cliente.phone_number || '');
     const [rua, setRua] = useState(cliente.rua);
@@ -44,6 +45,8 @@ export default function Edit({ cliente }) {
     }
 
     return (
+        <AuthenticatedLayout auth={auth} errors={errors}>
+
         <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
             <h1 className="text-xl font-semibold text-gray-700 mb-5">Editar Cliente</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
@@ -134,6 +137,7 @@ export default function Edit({ cliente }) {
                     </div>
                 </form>
             </div>
+            </AuthenticatedLayout>
         );
     }
     

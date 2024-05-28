@@ -78,4 +78,39 @@ class PsicologaController extends Controller
         $psicologa->delete();
         return redirect()->back();
     }
+
+    public function minhasInfos()
+    {
+        $user = Auth::user();
+        $psicologa = $user->psicologa;
+
+        if (!$psicologa) {
+            return Inertia::render('Psicologas/MinhasInfos', [
+                'psicologa' => null,
+                'error' => 'Nenhum psicologa associado a este usuário.'
+            ]);
+        }
+
+        return Inertia::render('Psicologas/MinhasInfos', [
+            'psicologa' => $psicologa
+        ]);
+    }
+
+    public function updateMinhasInfos(Request $request)
+    {
+        $user = Auth::user();
+        $psicologa = $user->psicologa;
+
+        if (!$psicologa) {
+            return Redirect::route('minhas-infos-psico')->with('error', 'Nenhum psicologa associado a este usuário.');
+        }
+
+        $validated = $request->validate([
+            // Adicione regras de validação aqui
+        ]);
+
+        $cliente->update($validated);
+
+        return Redirect::route('minhas-infos-psico')->with('success', 'Informações atualizadas com sucesso.');
+    }
 }

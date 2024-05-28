@@ -27,11 +27,15 @@ function CreateDepoimento({ depoimentos, auth, errors }) {
                     </button>
                 </form>
                 <div>
+                    <div>
+                    <h1 className="text-2xl font-semibold text-gray-800  py-4">Seus Depoimentos</h1>
+
                     {depoimentos.map((depoimento, index) => (
                         <div key={index}>
-                            <p><strong>Cliente ID {depoimento.cliente_id}:</strong> {depoimento.mensagem}</p>
+                            <p> {depoimento.mensagem}</p>
                         </div>
                     ))}
+                    </div>
                 </div>
             </div>
 
