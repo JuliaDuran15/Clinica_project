@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { Head, Link } from '@inertiajs/inertia-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { Head, Link, usePage } from '@inertiajs/inertia-react';
 import { Inertia } from '@inertiajs/inertia';
 
 function ClinicWelcome(props) {
     const [activeTab, setActiveTab] = useState('services');
+    const [depoimentos, setDepoimentos] = useState([]);
 
     // Referências para os campos do formulário
     const emailRef = useRef('');
@@ -22,6 +23,26 @@ function ClinicWelcome(props) {
             onError: () => alert('Erro ao enviar email.')
         });
     };
+
+    useEffect(() => {
+        if (activeTab === 'testimonials') {
+            Inertia.get('/depoimentos-public', {}, {
+                only: ['depoimentos'],
+                onError: (errors) => {
+                    console.error('Erro ao carregar depoimentos', errors);
+                    alert('Erro ao carregar depoimentos.');
+                },
+                onSuccess: ({ props }) => {
+                    if (props.depoimentos) {
+                        setDepoimentos(props.depoimentos);
+                    } else {
+                        alert('Nenhum depoimento disponível.');
+                    }
+                }
+            });
+        }
+    }, [activeTab]);
+    
 
     return (
         <>
@@ -71,14 +92,20 @@ function ClinicWelcome(props) {
                             </p>
                         </div>
                     )}
-                    {activeTab === 'testimonials' && (
-                        <div className="text-center">
-                            <h2 className="text-xl font-semibold text-indigo-500">Depoimentos</h2>
-                            <p className="text-gray-600 mt-4">
-                                "Nunca me senti tão compreendido e apoiado. A terapia transformou minha vida e recomendo esta clínica a todos que buscam paz e equilíbrio emocional." Descubra mais histórias de sucesso e transformações pessoais alcançadas através do nosso trabalho dedicado e especializado.
-                            </p>
-                        </div>
-                    )}
+                   {activeTab === 'testimonials' && (
+    <div className="text-center">
+        <h2 className="text-xl font-semibold text-indigo-500">Depoimentos</h2>
+        {depoimentos.length > 0 ? (
+            depoimentos.map(depoimento => (
+                <p key={depoimento.id} className="text-gray-600 mt-4">
+                    "{depoimento.mensagem}" - Cliente: {depoimento.cliente.nome}
+                </p>
+            ))
+        ) : (
+            <p className="text-gray-600 mt-4">Ainda não temos depoimentos para mostrar.</p>
+        )}
+    </div>
+)}
                     {activeTab === 'contact' && (
                         <div className="text-center">
                             <h2 className="text-xl font-semibold text-indigo-500">Contate-nos</h2>

@@ -1,8 +1,10 @@
 import React, { useState , useEffect } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import InputMask from 'react-input-mask';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function Edit({ psicologa }) {
+
+export default function Edit({ psicologa , auth, errors  }) {
     const [nome, setNome] = useState(psicologa.nome);
     const [especializacao, setEspecializacao] = useState(psicologa.especializacao);
     const [horarioDisponivel, setHorarioDisponivel] = useState(psicologa.horario_disponivel);
@@ -47,6 +49,8 @@ export default function Edit({ psicologa }) {
     }
 
     return (
+        <AuthenticatedLayout auth={auth} errors={errors}>
+
         <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
             <h1 className="text-xl font-semibold text-gray-700 mb-5">Editar Psicóloga</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
@@ -177,5 +181,6 @@ export default function Edit({ psicologa }) {
                     </div>
                 </form>
             </div>
+            </AuthenticatedLayout>
         );
     }

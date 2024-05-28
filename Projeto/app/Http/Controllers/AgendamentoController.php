@@ -8,7 +8,6 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
-
 class AgendamentoController extends Controller
 {
     public function index()
@@ -41,15 +40,11 @@ class AgendamentoController extends Controller
         return Redirect::route('agendamentos.index')->with('success', 'Agendamento criado com sucesso.');
     }
 
-    public function meusAgendamentos()
+    public function meusAgendamentosCliente()
     {
-        // Obtém o usuário autenticado
         $user = Auth::user();
+        $cliente = $user->cliente;
 
-        // Acessa o cliente associado ao usuário autenticado
-        $cliente = $user->cliente; // Certifique-se de que existe um relacionamento 'cliente' no modelo User
-
-        // Verifica se o cliente existe
         if (!$cliente) {
             return Inertia::render('Agendamentos/MeusAgendamentos', [
                 'agendamentos' => [],
@@ -57,13 +52,29 @@ class AgendamentoController extends Controller
             ]);
         }
 
-        // Busca os agendamentos onde o cliente_id é o ID do cliente associado
         $agendamentos = Agendamento::where('cliente_id', $cliente->id)
                                    ->with(['cliente', 'psicologa'])
                                    ->get();
 
         return Inertia::render('Agendamentos/MeusAgendamentos', ['agendamentos' => $agendamentos]);
     }
+
+    public function meusAgendamentosPsicologa()
+    {
+        $user = Auth::user();
+        $psicologa = $user->psicologa;
+
+        if (!$psicologa) {
+            return Inertia::render('Agendamentos/MeusAgendamentosPsico', [
+                'agendamentos' => [],
+                'message' => 'Nenhum psicóloga associada a este usuário.'
+            ]);
+        }
+
+        $agendamentos = Agendamento::where('psicologa_id', $psicologa->id)
+                                   ->with(['psicologa', 'cliente'])
+                                   ->get();
+
+        return Inertia::render('Agendamentos/MeusAgendamentosPsico', ['agendamentos' => $agendamentos]);
+    }
 }
-
-

@@ -9,18 +9,43 @@ use App\Models\Depoimento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Log;
 
 
 
 class DepoimentoController extends Controller
 {
-    public function index()
-    {
-        $depoimentos = Depoimento::with('cliente')->get();
+    
+    public function indexPublic()
+{
+    $depoimentos = Depoimento::latest()->take(4)->get();
 
-        // Usando Inertia para retornar a página com os dados
-        return Inertia::render('Depoimentos', ['depoimentos' => $depoimentos]);
+    // Adicione um log para verificar se os depoimentos estão sendo recuperados corretamente
+
+    return Inertia::render('Welcome', ['depoimentos' => $depoimentos]);
+}
+
+
+    /**
+     * Método para exibir depoimentos na página CreateDepoimento (requer autenticação).
+     */
+    public function indexPrivate()
+    {
+        $user = Auth::user();
+
+        // Verifica se o usuário tem um cliente associado
+        $cliente = $user->cliente;
+        if (!$cliente) {
+            return Inertia::render('CreateDepoimento', [
+                'depoimentos' => [],
+                'error' => 'Nenhum cliente associado a este usuário.'
+            ]);
+        }
+
+        $depoimentos = $cliente->depoimentos()->latest()->get();
+        return Inertia::render('CreateDepoimento', ['depoimentos' => $depoimentos]);
     }
+
 
     public function store(Request $request)
     {

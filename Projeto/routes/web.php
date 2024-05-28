@@ -1,15 +1,14 @@
 <?php
-
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
-use Inertia\Inertia;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DepoimentoController;
 use App\Http\Controllers\PsicologaController;
 use App\Http\Controllers\AgendamentoController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\InformacaoPacienteController;
+use Inertia\Inertia;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,8 +20,7 @@ use App\Http\Controllers\InformacaoPacienteController;
 |
 */
 
-Route::post('/submit-form', [ContactController::class, 'send']);
-
+// Página inicial e formulário de contato
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -32,39 +30,50 @@ Route::get('/', function () {
     ]);
 });
 
+Route::post('/submit-form', [ContactController::class, 'send']);
 Route::post('/send-email', [ContactController::class, 'sendEmail']);
 
+// Rota pública para depoimentos (acessível sem autenticação)
+Route::get('/depoimentos-public', [DepoimentoController::class, 'indexPublic']);
+
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    // Rotas para Depoimentos
-    Route::get('/depoimentos', [DepoimentoController::class, 'index'])->name('depoimentos');
-    Route::post('/depoimentos', [DepoimentoController::class, 'store']);
+    // Rotas autenticadas para Depoimentos
+    Route::get('/depoimentos', [DepoimentoController::class, 'indexPrivate'])->name('depoimentos');
+    Route::post('/depoimentos', [DepoimentoController::class, 'store'])->name('depoimentos.store');
+
     // Rotas para gerenciamento de clientes
     Route::resource('clientes', ClienteController::class)->except(['show', 'create', 'store']);
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes');
-    
+
+    // Rotas para gerenciamento de psicólogas
     Route::resource('psicologas', PsicologaController::class);
     Route::get('/psicologas', [PsicologaController::class, 'index'])->name('psicologas');
 
+    // Rotas para agendamentos
     Route::resource('agendamentos', AgendamentoController::class);
-    Route::get('/meus-agendamentos', [AgendamentoController::class, 'meusAgendamentos'])
-         ->name('meus-agendamentos');
+    Route::get('/meus-agendamentos', [AgendamentoController::class, 'meusAgendamentosCliente'])->name('meusAgendamentosCliente');
+    Route::get('/meus-agendamentos-psicologa', [AgendamentoController::class, 'meusAgendamentosPsicologa'])->name('meusAgendamentosPsicologa');
 
-         Route::get('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'edit'])
-         ->name('informacoes.edit');
+    // Rotas para informações dos pacientes
+    Route::get('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'edit'])->name('informacoes.edit');
+    Route::post('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'update'])->name('informacoes.update');
 
-    // Rota para atualizar as informações do paciente
-    Route::post('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'update'])
-         ->name('informacoes.update');
-    
-    // routes/web.php
-Route::get('/documents', function () {
-    return Inertia::render('Documents');
-})->name('documents');  // Adicionando nome à rota
+    // Rotas para "Minhas Infos"
+    Route::get('/minhas-infos', [ClienteController::class, 'minhasInfos'])->name('minhas-infos');
+    Route::put('/minhas-infos', [ClienteController::class, 'updateMinhasInfos'])->name('myInfosUpdate');
 
+    Route::get('/minhas-infos-psico', [PsicologaController::class, 'minhasInfos'])->name('minhas-infos-psico');
+    Route::put('/minhas-infos-psico', [PsicologaController::class, 'updateMinhasInfos'])->name('myInfosUpdate');
+
+    // Rota para documentos
+    Route::get('/documents', function () {
+        return Inertia::render('Documents');
+    })->name('documents');
 });
 
 require __DIR__.'/auth.php';
