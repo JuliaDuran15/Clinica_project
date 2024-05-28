@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, InertiaLink, usePage } from '@inertiajs/inertia-react';
+import { Head, InertiaLink, Link, usePage } from '@inertiajs/inertia-react';
 
 export default function Dashboard() {
     const { auth, errors } = usePage().props; // Extraído diretamente do usePage para evitar passagem desnecessária de props
@@ -14,26 +14,31 @@ export default function Dashboard() {
             <Head title="Dashboard" />
 
             <div className="py-12">
-                
-                {/* Verificação de segurança para garantir que auth.user existe antes de acessar auth.user.role */}
-                {auth.user && auth.user.role === 'cliente' && (
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <InertiaLink href={route('meus-agendamentos')} className="block p-6 bg-white border-b border-gray-200 hover:bg-gray-100">
-                                Minhas Consultas
-                            </InertiaLink>
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    {auth.user && auth.user.role === 'cliente' && (
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                <InertiaLink href={route('meusAgendamentosCliente')} className="block p-6 bg-white border-b border-gray-200 hover:bg-gray-100 transition duration-200 ease-in-out transform hover:scale-105">
+                                    <h3 className="text-lg font-semibold text-gray-700">Minhas Consultas</h3>
+                                    <p className="text-gray-500 mt-2">Visualize e gerencie suas consultas.</p>
+                                </InertiaLink>
+                            </div>
                         </div>
-                    </div>
-                )}
-                {auth.user && auth.user.role === 'psicologa' && (
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <InertiaLink href={route('meus-agendamentos-psicologa')} className="block p-6 bg-white border-b border-gray-200 hover:bg-gray-100">
-                                Minhas Consultas
-                            </InertiaLink>
+                    )}
+
+                    {auth.user && auth.user.role === 'psicologa' && (
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                <InertiaLink href={route('meusAgendamentosPsicologa')} className="block p-6 bg-white border-b border-gray-200 hover:bg-gray-100 transition duration-200 ease-in-out transform hover:scale-105">
+                                    <h3 className="text-lg font-semibold text-gray-700">Minhas Consultas</h3>
+                                    <p className="text-gray-500 mt-2">Gerencie suas consultas agendadas.</p>
+                                </InertiaLink>
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+
+                    
+                </div>
             </div>
         </AuthenticatedLayout>
     );

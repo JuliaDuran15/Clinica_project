@@ -66,6 +66,7 @@ class RegisteredUserController extends Controller
             'user_id' => $user->id,
             'nome' => $user->name,
         ]);
+       
     }
 
         Auth::login($user);

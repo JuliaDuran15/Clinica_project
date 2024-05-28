@@ -3,8 +3,8 @@ import { InertiaLink, usePage, useForm } from '@inertiajs/inertia-react';
 import { Inertia } from '@inertiajs/inertia';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function Index(props) {
-    const { psicologas } = usePage().props;
+export default function Index() {
+    const {auth, psicologas,errors } = usePage().props;
     const { data, setData, post, processing } = useForm({ nome: "" });
     const [search, setSearch] = useState("");
 
@@ -21,7 +21,7 @@ export default function Index(props) {
     );
 
     return (
-        <AuthenticatedLayout auth={props.auth} errors={props.errors}>
+        <AuthenticatedLayout auth={auth} errors={errors}>
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white shadow-lg rounded-lg">
                 <h1 className="text-2xl font-semibold text-gray-800 mb-6">Psicólogas</h1>
                 
@@ -42,7 +42,9 @@ export default function Index(props) {
                                 <p className="text-sm text-gray-600">Horário disponível: {psicologa.horario_disponivel}</p>
                                 <p className="text-sm text-gray-600">Telefone: {psicologa.phone_number}</p>
                             </div>
+                            
                             <div className="px-5 py-4 bg-gray-50">
+                            {auth.user && auth.user.role === 'secretaria' && (
                                 <div className="flex items-center justify-end space-x-2">
                                     <InertiaLink href={`/psicologas/${psicologa.id}/edit`} className="px-4 py-2 text-sm text-white bg-blue-500 hover:bg-blue-600 rounded">
                                         Editar
@@ -53,6 +55,7 @@ export default function Index(props) {
                                         Apagar
                                     </button>
                                 </div>
+                            )}
                             </div>
                         </div>
                     ))}

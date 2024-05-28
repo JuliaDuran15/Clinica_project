@@ -24,7 +24,6 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -47,8 +46,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/depoimentos', [DepoimentoController::class, 'store'])->name('depoimentos.store');
 
     // Rotas para gerenciamento de clientes
-    Route::resource('clientes', ClienteController::class)->except(['show', 'create', 'store']);
-    Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes');
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+    Route::get('/clientes/{id}', [ClienteController::class, 'show'])->name('clientes.show');
+    Route::get('/clientes/{id}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+    Route::get('/minhas-infos', [ClienteController::class, 'minhasInfos'])->name('clientes.minhasInfos');
+    Route::put('/clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
+    Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
 
     // Rotas para gerenciamento de psicólogas
     Route::resource('psicologas', PsicologaController::class);
@@ -57,18 +60,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Rotas para agendamentos
     Route::resource('agendamentos', AgendamentoController::class);
     Route::get('/meus-agendamentos', [AgendamentoController::class, 'meusAgendamentosCliente'])->name('meusAgendamentosCliente');
-    Route::get('/meus-agendamentos-psicologa', [AgendamentoController::class, 'meusAgendamentosPsicologa'])->name('meusAgendamentosPsicologa');
+    Route::get('/meus-agendamentos', [AgendamentoController::class, 'meusAgendamentosPsicologa'])->name('meusAgendamentosPsicologa');
+    Route::get('/agendamentos/{clienteId}/create-from-cliente', [AgendamentoController::class, 'createFromCliente'])->name('agendamentos.create-from-cliente');
+
 
     // Rotas para informações dos pacientes
     Route::get('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'edit'])->name('informacoes.edit');
     Route::post('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'update'])->name('informacoes.update');
 
     // Rotas para "Minhas Infos"
-    Route::get('/minhas-infos', [ClienteController::class, 'minhasInfos'])->name('minhas-infos');
-    Route::put('/minhas-infos', [ClienteController::class, 'updateMinhasInfos'])->name('myInfosUpdate');
-
-    Route::get('/minhas-infos-psico', [PsicologaController::class, 'minhasInfos'])->name('minhas-infos-psico');
-    Route::put('/minhas-infos-psico', [PsicologaController::class, 'updateMinhasInfos'])->name('myInfosUpdate');
+    Route::get('/minhas-infos', [ClienteController::class, 'minhasInfos'])->name('clientes.minhasInfos');
 
     // Rota para documentos
     Route::get('/documents', function () {

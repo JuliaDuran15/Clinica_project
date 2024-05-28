@@ -85,13 +85,13 @@ class PsicologaController extends Controller
         $psicologa = $user->psicologa;
 
         if (!$psicologa) {
-            return Inertia::render('Psicologa/MinhasInfos', [
+            return Inertia::render('Psicologas/MinhasInfos', [
                 'psicologa' => null,
                 'error' => 'Nenhum psicologa associado a este usuário.'
             ]);
         }
 
-        return Inertia::render('Psicologa/MinhasInfos', [
+        return Inertia::render('Psicologas/MinhasInfos', [
             'psicologa' => $psicologa
         ]);
     }

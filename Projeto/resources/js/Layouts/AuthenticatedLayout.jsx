@@ -45,9 +45,11 @@ export default function Authenticated({ auth, header, children }) {
                                         Documentos
                                     </NavLink>
                                 )}
+                                {auth.user && auth.user.role === 'cliente' && (
                                 <NavLink href={route('depoimentos')} active={route().current('depoimentos')}>
                                     Depoimentos
                                 </NavLink>
+                                )}
                             </div>
                         </div>
 
@@ -82,11 +84,7 @@ export default function Authenticated({ auth, header, children }) {
                                             Minhas Infos
                                         </Dropdown.Link>
                                     )}
-                                     {auth.user && auth.user.role === 'psicologa' && (
-                                        <Dropdown.Link href={route('minhas-infos')}>
-                                            Minhas Infos
-                                        </Dropdown.Link>
-                                    )}
+                                   
                                     <Dropdown.Link href={route('logout')} method="post" as="button">
                                         Log Out
                                     </Dropdown.Link>
@@ -157,11 +155,7 @@ export default function Authenticated({ auth, header, children }) {
                                             Minhas Infos
                                         </Dropdown.Link>
                                     )}
-                          {auth.user && auth.user.role === 'psicologa' && (
-                                        <Dropdown.Link href={route('minhas-infos')}>
-                                            Minhas Infos
-                                        </Dropdown.Link>
-                                    )}
+
                           <Dropdown.Link href={route('logout')} method="post" as="button">
                                         Log Out
                                     </Dropdown.Link>

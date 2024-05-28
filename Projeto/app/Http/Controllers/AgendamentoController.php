@@ -16,6 +16,12 @@ class AgendamentoController extends Controller
         return Inertia::render('Agendamentos/Index', ['agendamentos' => $agendamentos]);
     }
 
+    public function show($id)
+    {
+        $agendamento = Agendamento::findOrFail($id);
+        return Inertia::render('Agendamentos/Show', ['agendamento' => $agendamento]);
+    }
+
     public function create()
     {
         $clientes = \App\Models\Cliente::all(['id', 'nome']); // Assume que tem um campo 'nome'
@@ -56,7 +62,8 @@ class AgendamentoController extends Controller
                                    ->with(['cliente', 'psicologa'])
                                    ->get();
 
-        return Inertia::render('Agendamentos/MeusAgendamentos', ['agendamentos' => $agendamentos]);
+        return Inertia::render('Agendamentos/MeusAgendamentos', ['agendamentos' => $agendamentos ,
+        'cliente' => $cliente]);
     }
 
     public function meusAgendamentosPsicologa()
@@ -75,6 +82,19 @@ class AgendamentoController extends Controller
                                    ->with(['psicologa', 'cliente'])
                                    ->get();
 
-        return Inertia::render('Agendamentos/MeusAgendamentosPsico', ['agendamentos' => $agendamentos]);
+        return Inertia::render('Agendamentos/MeusAgendamentosPsico', ['agendamentos' => $agendamentos ]);
     }
+
+    public function createFromCliente($clienteId)
+    {
+        $cliente = \App\Models\Cliente::findOrFail($clienteId);
+        $psicologas = \App\Models\Psicologa::all(['id', 'nome']);
+        
+        return Inertia::render('Agendamentos/CreateFromCliente', [
+            'cliente' => $cliente,
+            'psicologas' => $psicologas
+        ]);
+    }
+
+
 }

@@ -16,15 +16,20 @@ use Illuminate\Support\Facades\Log;
 class DepoimentoController extends Controller
 {
     
-    public function indexPublic()
+   
+
+public function randomDepoimentos()
 {
-    $depoimentos = Depoimento::latest()->take(4)->get();
+    $depoimentos = Depoimento::inRandomOrder()->limit(3)->get();
 
-    // Adicione um log para verificar se os depoimentos estão sendo recuperados corretamente
-
-    return Inertia::render('Welcome', ['depoimentos' => $depoimentos]);
+    return response()->json($depoimentos);
 }
 
+public function indexPublic()
+    {
+        $depoimentos = Depoimento::all();
+        return Inertia::render('Depoimentos/Public', ['depoimentos' => $depoimentos]);
+    }
 
     /**
      * Método para exibir depoimentos na página CreateDepoimento (requer autenticação).

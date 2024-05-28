@@ -10,6 +10,9 @@ export default function MeusAgendamentos({ agendamentos, auth, errors }) {
                 <div className="max-w-7xl mx-auto p-6 bg-white shadow-lg rounded-lg">
                     <h1 className="text-2xl font-semibold text-gray-800 mb-4">Minhas Consultas</h1>
                     <p>Nenhum agendamento encontrado.</p>
+                    <InertiaLink href="/agendamentos/create" className="mt-4 inline-block text-indigo-600 hover:text-indigo-800 font-semibold">
+                    Agendar Novo
+                </InertiaLink>
                 </div>
             </AuthenticatedLayout>
         );

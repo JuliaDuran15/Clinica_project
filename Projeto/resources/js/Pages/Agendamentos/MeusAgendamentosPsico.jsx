@@ -41,9 +41,7 @@ export default function MeusAgendamentos({ agendamentos, auth, errors }) {
                         </tbody>
                     </table>
                 </div>
-                <InertiaLink href="/agendamentos/create" className="mt-4 inline-block text-indigo-600 hover:text-indigo-800 font-semibold">
-                    Agendar Novo
-                </InertiaLink>
+               
             </div>
         </AuthenticatedLayout>
     );

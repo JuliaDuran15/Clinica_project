@@ -30,7 +30,13 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            // Adicione regras de validação aqui
+            'nome' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'rua' => 'required|string|max:255',
+            'cep' => 'required|string|max:10',
+            'bairro' => 'required|string|max:255',
+            'localidade' => 'required|string|max:255',
+            'uf' => 'required|string|max:2',
         ]);
 
         $cliente = Cliente::create($validated);
@@ -53,8 +59,18 @@ class ClienteController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'rua' => 'required|string|max:255',
+            'cep' => 'required|string|max:10',
+            'bairro' => 'required|string|max:255',
+            'localidade' => 'required|string|max:255',
+            'uf' => 'required|string|max:2',
+        ]);
+
         $cliente = Cliente::findOrFail($id);
-        $cliente->update($request->all());
+        $cliente->update($validated);
         return Redirect::route('clientes')->with('success', 'Cliente atualizado com sucesso.');
     }
 
@@ -71,25 +87,8 @@ class ClienteController extends Controller
         }
 
         return Inertia::render('Clientes/MinhasInfos', [
-            'cliente' => $cliente
+            'clienteId' => $cliente_id
         ]);
     }
 
-    public function updateMinhasInfos(Request $request)
-    {
-        $user = Auth::user();
-        $cliente = $user->cliente;
-
-        if (!$cliente) {
-            return Redirect::route('minhas-infos')->with('error', 'Nenhum cliente associado a este usuário.');
-        }
-
-        $validated = $request->validate([
-            // Adicione regras de validação aqui
-        ]);
-
-        $cliente->update($validated);
-
-        return Redirect::route('minhas-infos')->with('success', 'Informações atualizadas com sucesso.');
-    }
 }
