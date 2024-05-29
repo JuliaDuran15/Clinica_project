@@ -45,6 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/depoimentos', [DepoimentoController::class, 'indexPrivate'])->name('depoimentos');
     Route::post('/depoimentos', [DepoimentoController::class, 'store'])->name('depoimentos.store');
 
+
     // Rotas para gerenciamento de clientes
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
     Route::get('/clientes/{id}', [ClienteController::class, 'show'])->name('clientes.show');

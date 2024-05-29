@@ -31,7 +31,7 @@ export default function Authenticated({ auth, header, children }) {
                                     </NavLink>
                                 )}
                                 {auth.user && auth.user.role !== 'cliente' && (
-                                    <NavLink href={route('clientes')} active={route().current('clientes')}>
+                                    <NavLink href={route('clientes.index')} active={route().current('clientes.index')}>
                                         Pacientes
                                     </NavLink>
                                 )}
@@ -79,11 +79,11 @@ export default function Authenticated({ auth, header, children }) {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
-                                    {auth.user && auth.user.role === 'cliente' && (
+                                 {/*    {auth.user && auth.user.role === 'cliente' && (
                                         <Dropdown.Link href={route('minhas-infos')}>
                                             Minhas Infos
                                         </Dropdown.Link>
-                                    )}
+                                    )} */}
                                    
                                     <Dropdown.Link href={route('logout')} method="post" as="button">
                                         Log Out
@@ -131,7 +131,7 @@ export default function Authenticated({ auth, header, children }) {
                         </ResponsiveNavLink>
                         )}
                         {auth.user && auth.user.role !== 'cliente' && (
-                        <ResponsiveNavLink href={route('clientes')} active={route().current('clientes')}>
+                        <ResponsiveNavLink href={route('clientes.index')} active={route().current('clientes.index')}>
                             Pacientes
                         </ResponsiveNavLink>
                         )}
@@ -150,11 +150,11 @@ export default function Authenticated({ auth, header, children }) {
                             Depoimentos
                         </ResponsiveNavLink>
                         )}
-                          {auth.user && auth.user.role === 'cliente' && (
+                        {/*   {auth.user && auth.user.role === 'cliente' && (
                                         <Dropdown.Link href={route('minhas-infos')}>
                                             Minhas Infos
                                         </Dropdown.Link>
-                                    )}
+                                    )} */}
 
                           <Dropdown.Link href={route('logout')} method="post" as="button">
                                         Log Out
