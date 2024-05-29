@@ -26,16 +26,21 @@ function ClinicWelcome(props) {
 
     useEffect(() => {
         if (activeTab === 'testimonials') {
-            fetch('/random-depoimentos')
-                .then(response => response.json())
-                .then(data => setDepoimentos(data))
-                .catch(error => {
-                    console.error('Erro ao carregar depoimentos', error);
+            Inertia.get('/random-depoimentos', {}, {
+                onError: (errors) => {
+                    console.error('Erro ao carregar depoimentos', errors);
                     alert('Erro ao carregar depoimentos.');
-                });
+                },
+                onSuccess: ({ data }) => {
+                    if (data) {
+                        setDepoimentos(data);
+                    } else {
+                        alert('Nenhum depoimento disponível.');
+                    }
+                }
+            });
         }
     }, [activeTab]);
-
 
     return (
         <>
@@ -96,7 +101,7 @@ function ClinicWelcome(props) {
                             {depoimentos.length > 0 ? (
                                 depoimentos.map(depoimento => (
                                     <p key={depoimento.id} className="text-gray-600 mt-4">
-                                        "{depoimento.mensagem}" 
+                                        "{depoimento.mensagem}" - Cliente: {depoimento.cliente.nome}
                                     </p>
                                 ))
                             ) : (

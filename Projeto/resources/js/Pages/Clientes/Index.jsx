@@ -13,7 +13,7 @@ export default function Index(props) {
         if (confirm("Tem certeza que deseja apagar este cliente?")) {
             Inertia.delete(`/clientes/${id}`);
         }
-    }
+    }    
 
     const filteredClientes = clientes.filter(cliente =>
         cliente.nome.toLowerCase().includes(search.toLowerCase())

@@ -2,7 +2,7 @@ import React from 'react';
 import { InertiaLink } from '@inertiajs/inertia-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function MeusAgendamentos({ agendamentos, auth, errors }) {
+export default function meusAgendamentosPsicologa({ agendamentos, auth, errors }) {
     if (agendamentos.length === 0) {
         return (
             // O AuthenticatedLayout é o elemento pai que encapsula tudo

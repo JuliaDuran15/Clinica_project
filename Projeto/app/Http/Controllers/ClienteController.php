@@ -30,13 +30,7 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'rua' => 'required|string|max:255',
-            'cep' => 'required|string|max:10',
-            'bairro' => 'required|string|max:255',
-            'localidade' => 'required|string|max:255',
-            'uf' => 'required|string|max:2',
+            // Adicione regras de validação aqui
         ]);
 
         $cliente = Cliente::create($validated);
@@ -45,34 +39,26 @@ class ClienteController extends Controller
     }
 
     public function edit($id)
-    {
-        $cliente = Cliente::findOrFail($id);
-        return Inertia::render('Clientes/Edit', ['cliente' => $cliente]);
+{
+    $cliente = Cliente::find($id);
+    if (!$cliente) {
+        abort(404);
     }
+    return Inertia::render('Clientes/Edit', ['cliente' => $cliente]);
+}
+public function destroy($id)
+{
+    $cliente = Cliente::findOrFail($id);
+    $cliente->delete();
+    return Redirect::route('clientes.index')->with('success', 'Psicóloga atualizada com sucesso.');
+}
 
-    public function destroy($id)
-    {
-        $cliente = Cliente::findOrFail($id);
-        $cliente->delete();
-        return redirect()->route('clientes.index');
-    }
-
-    public function update(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'rua' => 'required|string|max:255',
-            'cep' => 'required|string|max:10',
-            'bairro' => 'required|string|max:255',
-            'localidade' => 'required|string|max:255',
-            'uf' => 'required|string|max:2',
-        ]);
-
-        $cliente = Cliente::findOrFail($id);
-        $cliente->update($validated);
-        return Redirect::route('clientes')->with('success', 'Cliente atualizado com sucesso.');
-    }
+public function update(Request $request, $id)
+{
+    $cliente = Cliente::findOrFail($id);
+    $cliente->update($request->all());
+    return Redirect::route('clientes.index')->with('success', 'Psicóloga atualizada com sucesso.');
+}
 
     public function minhasInfos()
     {
@@ -87,7 +73,7 @@ class ClienteController extends Controller
         }
 
         return Inertia::render('Clientes/MinhasInfos', [
-            'clienteId' => $cliente_id
+            'cliente' => $cliente
         ]);
     }
 
