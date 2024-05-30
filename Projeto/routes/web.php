@@ -34,7 +34,8 @@ Route::post('/submit-form', [ContactController::class, 'send']);
 Route::post('/send-email', [ContactController::class, 'sendEmail']);
 
 // Rota pública para depoimentos (acessível sem autenticação)
-Route::get('/random-depoimentos', [DepoimentoController::class, 'randomDepoimentos']);
+Route::get('/random-depoimentos', [DepoimentoController::class, 'randomDepoimentos'])->name('random-depoimentos');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
