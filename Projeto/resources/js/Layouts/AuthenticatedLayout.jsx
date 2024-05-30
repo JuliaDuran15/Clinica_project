@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, usePage  } from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import Dropdown from '@/Components/Dropdown';
@@ -9,7 +9,6 @@ import logoImage from '../../../public/logo.jpg';
 export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     
-
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white border-b border-gray-100">
@@ -79,11 +78,11 @@ export default function Authenticated({ auth, header, children }) {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
-                                 {/*    {auth.user && auth.user.role === 'cliente' && (
-                                        <Dropdown.Link href={route('minhas-infos')}>
+                                    {auth.user && auth.user.role === 'cliente' && (
+                                        <Dropdown.Link href={route('clientes.myinfo')}>
                                             Minhas Infos
                                         </Dropdown.Link>
-                                    )} */}
+                                    )}
                                    
                                     <Dropdown.Link href={route('logout')} method="post" as="button">
                                         Log Out
@@ -146,19 +145,14 @@ export default function Authenticated({ auth, header, children }) {
                         </ResponsiveNavLink>
                         )} 
                         {auth.user && auth.user.role === 'cliente' && (
-                        <ResponsiveNavLink href={route('depoimentos')} active={route().current('depoimentos')}>
-                            Depoimentos
+                        <ResponsiveNavLink href={route('clientes.myinfo')}>
+                            Minhas Infos
                         </ResponsiveNavLink>
                         )}
-                        {/*   {auth.user && auth.user.role === 'cliente' && (
-                                        <Dropdown.Link href={route('minhas-infos')}>
-                                            Minhas Infos
-                                        </Dropdown.Link>
-                                    )} */}
-
-                          <Dropdown.Link href={route('logout')} method="post" as="button">
-                                        Log Out
-                                    </Dropdown.Link>
+ 
+                        <ResponsiveNavLink href={route('logout')} method="post" as="button">
+                            Log Out
+                        </ResponsiveNavLink>
                     </div>
                 </div>
             </nav>

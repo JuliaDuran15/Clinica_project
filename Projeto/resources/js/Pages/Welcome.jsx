@@ -49,6 +49,7 @@ function ClinicWelcome(props) {
                                     <Link href={route('dashboard')} className="text-sm text-gray-800 pr-4">
                                         Consultas +
                                     </Link>
+                                    
                                     <Link href={route('register')} className="text-sm text-gray-800">
                                         Register
                                     </Link>
@@ -58,9 +59,7 @@ function ClinicWelcome(props) {
                                     <Link href={route('login')} className="text-sm text-gray-800 pr-4">
                                         Log in
                                     </Link>
-                                    <Link href={route('register')} className="text-sm text-gray-800">
-                                        Register
-                                    </Link>
+                                   
                                 </>
                             )}
                         </div>

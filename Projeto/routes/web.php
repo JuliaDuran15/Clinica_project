@@ -24,6 +24,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -50,7 +51,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Rotas para gerenciamento de clientes
     Route::resource('clientes', ClienteController::class)->except(['show', 'create', 'store']);
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
-    Route::get('/minhas-infos', [ClienteController::class, 'minhasInfos'])->name('clientes.minhasInfos');
+    Route::get('/minhas-informacoes', [ClienteController::class, 'showMyInfo'])->name('clientes.myinfo');
+    Route::put('/minhas-informacoes', [ClienteController::class, 'updateMyInfo'])->name('clientes.myinfo.update');
 
 
     // Rotas para gerenciamento de psicólogas
@@ -62,7 +64,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/meus-agendamentos', [AgendamentoController::class, 'meusAgendamentos'])
          ->name('meus-agendamentos');
     // Rotas personalizadas para agendamentos
-    Route::get('/meus-agendamentos-psico', [AgendamentoController::class, 'meusAgendamentosPsico'])->name('meus-agendamentos-psico');
+    Route::get('/meus-agendamentos-psico', [AgendamentoController::class, 'meusAgendamentosPsico'])
+    ->name('meus-agendamentos-psico');
     Route::get('/agendamentos/{clienteId}/create-from-cliente', [AgendamentoController::class, 'createFromCliente'])->name('agendamentos.create-from-cliente');
 
 
@@ -70,8 +73,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'edit'])->name('informacoes.edit');
     Route::post('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'update'])->name('informacoes.update');
 
-    // Rotas para "Minhas Infos"
-    Route::get('/minhas-infos', [ClienteController::class, 'minhasInfos'])->name('clientes.minhasInfos');
 
     // Rota para documentos
     Route::get('/documents', function () {

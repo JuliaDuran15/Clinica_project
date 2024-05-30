@@ -26,18 +26,26 @@ export default function Dashboard() {
 
                 )}
 
-              {/*       {auth.user && auth.user.role === 'psicologa' && (
-                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                                <InertiaLink href={route('meusAgendamentosPsicologa')} className="block p-6 bg-white border-b border-gray-200 hover:bg-gray-100 transition duration-200 ease-in-out transform hover:scale-105">
+                    {auth.user && auth.user.role === 'psicologa' && (
+                        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">                            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                <InertiaLink href={route('meus-agendamentos-psico')} className="block p-6 bg-white border-b border-gray-200 hover:bg-gray-100 transition duration-200 ease-in-out transform hover:scale-105">
                                     <h3 className="text-lg font-semibold text-gray-700">Minhas Consultas</h3>
                                     <p className="text-gray-500 mt-2">Gerencie suas consultas agendadas.</p>
                                 </InertiaLink>
                             </div>
                         </div>
-                    )} */}
+                    )} 
 
-                    
+                {auth.user && auth.user.role === 'secretaria' && (
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div className="block p-6 bg-white border-b border-gray-200 hover:transition duration-200 ease-in-out transform hover:scale-105">
+                            <h3 className="text-lg font-semibold text-gray-700">BOM TRABALHO!</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                )}
                 </div>
             </div>
         </AuthenticatedLayout>
