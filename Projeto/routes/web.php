@@ -52,12 +52,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('clientes', ClienteController::class)->except(['show', 'create', 'store']);
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
     Route::get('/minhas-informacoes', [ClienteController::class, 'showMyInfo'])->name('clientes.myinfo');
-    Route::put('/minhas-informacoes', [ClienteController::class, 'updateMyInfo'])->name('clientes.myinfo.update');
+    Route::post('/minhas-informacoes', [ClienteController::class, 'updateMyInfo'])->name('clientes.myinfo.update');
 
 
     // Rotas para gerenciamento de psicólogas
     Route::resource('psicologas', PsicologaController::class);
     Route::get('/psicologas', [PsicologaController::class, 'index'])->name('psicologas');
+    Route::get('/minhas-informacoes-psico', [PsicologaController::class, 'showMyInfo'])->name('psico.myinfo');
+    Route::post('/minhas-informacoes-psico', [PsicologaController::class, 'updateMyInfo'])->name('psico.myinfo.update');
+
+
 
     // Rotas para agendamentos
     Route::resource('agendamentos', AgendamentoController::class);

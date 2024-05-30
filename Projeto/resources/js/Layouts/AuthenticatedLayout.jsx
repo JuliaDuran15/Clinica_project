@@ -83,7 +83,11 @@ export default function Authenticated({ auth, header, children }) {
                                             Minhas Infos
                                         </Dropdown.Link>
                                     )}
-                                   
+                                   {auth.user && auth.user.role === 'psicologa' && (
+                                     <Dropdown.Link href={route('psico.myinfo')}>
+                                     Minhas Infos
+                                    </Dropdown.Link>
+                                    )}
                                     <Dropdown.Link href={route('logout')} method="post" as="button">
                                         Log Out
                                     </Dropdown.Link>
@@ -139,6 +143,12 @@ export default function Authenticated({ auth, header, children }) {
                             Doutores
                         </ResponsiveNavLink>
                         )}
+
+                         {auth.user && auth.user.role === 'cliente' && (
+                        <ResponsiveNavLink href={route('depoimentos')} active={route().current('depoimentos')}>
+                                Depoimentos
+                        </ResponsiveNavLink>
+                        )}
                         {auth.user && auth.user.role === 'psicologa' && (
                         <ResponsiveNavLink href={route('documents')} active={route().current('documents')}>
                             Documentos
@@ -146,6 +156,11 @@ export default function Authenticated({ auth, header, children }) {
                         )} 
                         {auth.user && auth.user.role === 'cliente' && (
                         <ResponsiveNavLink href={route('clientes.myinfo')}>
+                            Minhas Infos
+                        </ResponsiveNavLink>
+                        )}
+                        {auth.user && auth.user.role === 'psicologa' && (
+                        <ResponsiveNavLink href={route('psico.myinfo')}>
                             Minhas Infos
                         </ResponsiveNavLink>
                         )}

@@ -68,6 +68,7 @@ class RegisteredUserController extends Controller
             'user_id' => $user->id,
             'nome' => $user->name,
         ]);
+        
     }
 
     if ($user->role == 'psicologa') { // Certifique-se de que a condição verifica o role correto

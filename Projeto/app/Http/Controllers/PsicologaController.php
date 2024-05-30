@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\Psicologa; // Usando o modelo Psicologa
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+
 
 class PsicologaController extends Controller
 {
@@ -79,38 +81,34 @@ class PsicologaController extends Controller
         return redirect()->back();
     }
 
-    public function minhasInfos()
+    public function showMyInfo()
     {
-        $user = Auth::user();
-        $psicologa = $user->psicologa;
-
-        if (!$psicologa) {
-            return Inertia::render('Psicologas/MinhasInfos', [
-                'psicologa' => null,
-                'error' => 'Nenhum psicologa associado a este usuário.'
-            ]);
-        }
-
-        return Inertia::render('Psicologas/MinhasInfos', [
-            'psicologa' => $psicologa
-        ]);
+        $psicologa = Psicologa::where('user_id', Auth::id())->first();
+        return Inertia::render('Psicologas/MyInfoPsico', ['psicologa' => $psicologa]);
     }
-
-    public function updateMinhasInfos(Request $request)
+    
+    
+    public function updateMyInfo(Request $request)
     {
-        $user = Auth::user();
-        $psicologa = $user->psicologa;
-
-        if (!$psicologa) {
-            return Redirect::route('minhas-infos-psico')->with('error', 'Nenhum psicologa associado a este usuário.');
-        }
-
-        $validated = $request->validate([
-            // Adicione regras de validação aqui
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'especializacao' => 'nullable|string',
+            'horario_disponivel' => 'nullable|string',
+            'phone_number' => 'nullable|string|max:20',
+            'rua' => 'nullable|string|max:255',
+            'cep' => 'nullable|string|max:10',
+            'bairro' => 'nullable|string|max:255',
+            'localidade' => 'nullable|string|max:255',
+            'uf' => 'nullable|string|max:2',
         ]);
-
-        $cliente->update($validated);
-
-        return Redirect::route('minhas-infos-psico')->with('success', 'Informações atualizadas com sucesso.');
+    
+        $psicologa = Psicologa::where('user_id', Auth::id())->firstOrFail();
+        $psicologa->update($request->all());
+    
+            
+        \Log::info('Informações atualizadas com sucesso.');
+    
+        return Redirect::route('dashboard')->with('success', 'Informações atualizadas com sucesso.');
     }
+    
 }

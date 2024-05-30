@@ -66,6 +66,7 @@ public function showMyInfo()
     return Inertia::render('Clientes/MyInfo', ['cliente' => $cliente]);
 }
 
+
 public function updateMyInfo(Request $request)
 {
     $request->validate([
@@ -79,27 +80,12 @@ public function updateMyInfo(Request $request)
     ]);
 
     $cliente = Cliente::where('user_id', Auth::id())->firstOrFail();
-        $cliente->update($request->all());
+    $cliente->update($request->all());
 
-        return Redirect::route('clientes.myinfo')->with('success', 'Informações atualizadas com sucesso.');
-    }
+        
+    \Log::info('Informações atualizadas com sucesso.');
 
-
-    public function minhasInfos()
-    {
-        $user = Auth::user();
-        $cliente = $user->cliente;
-
-        if (!$cliente) {
-            return Inertia::render('Clientes/MinhasInfos', [
-                'cliente' => null,
-                'error' => 'Nenhum cliente associado a este usuário.'
-            ]);
-        }
-
-        return Inertia::render('Clientes/MinhasInfos', [
-            'cliente' => $cliente
-        ]);
-    }
+    return Redirect::route('dashboard')->with('success', 'Informações atualizadas com sucesso.');
+}
 
 }
