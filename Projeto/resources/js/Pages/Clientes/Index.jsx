@@ -50,22 +50,19 @@ export default function Index(props) {
                                         <p className="text-sm text-gray-800">Endereço: {cliente.rua}, {cliente.bairro}, {cliente.localidade}, {cliente.uf} - {cliente.cep}</p>
                                     </td>
                                     <td className="py-4 px-6">
-                                    {auth.user && auth.user.role === 'secretaria' && (
-                                        <>
+                                    {auth.user && auth.user.role !== 'cliente' && (
+                                        
                                         <InertiaLink href={`/clientes/${cliente.id}/edit`}
                                             className="font-medium text-blue-600 hover:text-blue-800 mr-3">Editar</InertiaLink>
+                                            )}
+                                    {auth.user && auth.user.role === 'secretaria' && (
                                         <button onClick={() => handleDelete(cliente.id)}
                                             disabled={processing}
                                             className="text-red-500 hover:text-red-700 disabled:text-gray-300 mr-3">
                                             Apagar
                                         </button>
-                                        </>
+                                        
                                     )}
-                                        {auth.user && auth.user.role === 'psicologa' && (
-
-                                        <InertiaLink href={`/clientes/${cliente.id}/informacoes`}
-                                            className="font-medium text-green-600 hover:text-green-800">Mais Informações</InertiaLink>
-                                        )}
                                     </td>
                                 </tr>
                             ))}

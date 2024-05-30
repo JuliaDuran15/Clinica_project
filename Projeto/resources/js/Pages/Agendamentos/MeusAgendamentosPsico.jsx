@@ -36,6 +36,14 @@ export default function meusAgendamentosPsicologa({ agendamentos, auth, errors }
                                     <td className="py-4 px-6">{agendamento.psicologa.nome}</td>
                                     <td className="py-4 px-6">{agendamento.data}</td>
                                     <td className="py-4 px-6">{agendamento.hora}</td>
+                                    <td className="py-4 px-6">
+                                            <InertiaLink
+                                                href={route('agendamentos.show-info', agendamento.id)}
+                                                className="text-blue-600 hover:text-blue-900"
+                                            >
+                                                Adicionar Informações
+                                            </InertiaLink>
+                                        </td>
                                 </tr>
                             ))}
                         </tbody>

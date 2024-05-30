@@ -72,7 +72,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/meus-agendamentos-psico', [AgendamentoController::class, 'meusAgendamentosPsico'])
     ->name('meus-agendamentos-psico');
     Route::get('/agendamentos/{clienteId}/create-from-cliente', [AgendamentoController::class, 'createFromCliente'])->name('agendamentos.create-from-cliente');
-
+    Route::post('/agendamentos/{id}/add-info', [AgendamentoController::class, 'addInfo'])->name('agendamentos.add-info');
+    Route::get('/agendamentos/{agendamento}/informacoes', [AgendamentoController::class, 'showInfo'])->name('agendamentos.show-info');
+    Route::post('/agendamentos/{agendamento}/informacoes', [AgendamentoController::class, 'addInfo'])->name('agendamentos.add-info');
 
     // Rotas para informações dos pacientes
     Route::get('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'edit'])->name('informacoes.edit');

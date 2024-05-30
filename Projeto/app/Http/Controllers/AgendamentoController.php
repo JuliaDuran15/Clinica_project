@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClienteController;
+use App\Models\InformacaoPaciente;
 
 class AgendamentoController extends Controller
 {
@@ -81,6 +82,30 @@ class AgendamentoController extends Controller
     }
 
 
+    public function showInfo($id)
+    {
+        $agendamento = Agendamento::with('informacaoPaciente')->findOrFail($id);
+        return Inertia::render('Agendamentos/InformacaoPaciente', [
+            'agendamento' => $agendamento,
+            'informacoes' => $agendamento->informacaoPaciente ? $agendamento->informacaoPaciente->informacoes : '',
+        ]);
+    }
+
+    public function addInfo(Request $request, $id)
+    {
+        $request->validate([
+            'informacoes' => 'required|string',
+        ]);
+
+        $agendamento = Agendamento::findOrFail($id);
+        InformacaoPaciente::updateOrCreate(
+            ['agendamento_id' => $agendamento->id],
+            ['informacoes' => $request->informacoes]
+        );
+
+        return redirect()->route('meus-agendamentos-psico', $agendamento->id)->with('success', 'Informações da sessão atualizadas com sucesso.');
+    }
+
     public function meusAgendamentosPsico()
     {
         $user = Auth::user();
@@ -89,16 +114,17 @@ class AgendamentoController extends Controller
         if (!$psicologa) {
             return Inertia::render('Agendamentos/MeusAgendamentosPsico', [
                 'agendamentos' => [],
-                'message' => 'Nenhum psicóloga associada a este usuário.'
+                'message' => 'Nenhuma psicóloga associada a este usuário.'
             ]);
         }
 
         $agendamentos = Agendamento::where('psicologa_id', $psicologa->id)
-                                   ->with(['psicologa', 'cliente'])
+                                   ->with(['psicologa', 'cliente', 'informacaoPaciente'])
                                    ->get();
 
-        return Inertia::render('Agendamentos/MeusAgendamentosPsico', ['agendamentos' => $agendamentos ]);
+        return Inertia::render('Agendamentos/MeusAgendamentosPsico', ['agendamentos' => $agendamentos]);
     }
+
 
     public function createFromCliente($clienteId)
     {
