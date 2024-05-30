@@ -46,6 +46,9 @@ composer require railsware/mailtrap-php symfony/http-client nyholm/psr7
 
 Gerar a key do projeto Laravel
 ```sh
+php artisan migrate:fresh --seed --env=testing
+```
+```sh
 php artisan key:generate
 ```
 Fora do terminal do laravel 
@@ -59,6 +62,7 @@ npm install react
 ```sh
 npm run dev
 ```
+
 Acesse o projeto
 [http://localhost:8080](http://localhost:8080)
 
