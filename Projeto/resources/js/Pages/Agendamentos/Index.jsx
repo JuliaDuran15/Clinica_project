@@ -4,6 +4,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Inertia } from '@inertiajs/inertia';
 
 export default function Index({ agendamentos, auth, errors }) {
+
+    const handleDelete = (id) => {
+        if (confirm('Você tem certeza que deseja excluir este agendamento?')) {
+            Inertia.delete(route('agendamentos.destroy', id));
+        }
+    };
+
     return (
         <AuthenticatedLayout auth={auth} errors={errors}>
             <div className="max-w-7xl mx-auto p-6 bg-white shadow-lg rounded-lg">
@@ -16,6 +23,7 @@ export default function Index({ agendamentos, auth, errors }) {
                                 <th scope="col" className="py-3 px-6">Psicóloga</th>
                                 <th scope="col" className="py-3 px-6">Data</th>
                                 <th scope="col" className="py-3 px-6">Hora</th>
+                                <th scope="col" className="py-3 px-6">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,6 +33,14 @@ export default function Index({ agendamentos, auth, errors }) {
                                     <td className="py-4 px-6">{agendamento.psicologa.nome}</td>
                                     <td className="py-4 px-6">{agendamento.data}</td>
                                     <td className="py-4 px-6">{agendamento.hora}</td>
+                                    <td className="py-4 px-6">
+                                        <button
+                                            onClick={() => handleDelete(agendamento.id)}
+                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                        >
+                                            Excluir
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

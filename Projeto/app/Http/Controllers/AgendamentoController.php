@@ -111,5 +111,12 @@ class AgendamentoController extends Controller
         ]);
     }
 
+    public function destroy($id)
+    {
+        $agendamento = Agendamento::findOrFail($id);
+        $agendamento->delete();
+
+        return Redirect::route('agendamentos.index')->with('success', 'Agendamento excluído com sucesso.');
+    }
 
 }
