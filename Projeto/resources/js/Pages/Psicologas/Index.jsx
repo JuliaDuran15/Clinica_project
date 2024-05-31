@@ -14,6 +14,10 @@ export default function Index() {
         }
     }
 
+    function handleNotify(psicologaId, clienteId) {
+        Inertia.post(`/notify-psychologist/${clienteId}`, { psicologa_id: psicologaId });
+    }
+
     const filteredPsicologas = psicologas.filter(psicologa =>
         psicologa.nome.toLowerCase().includes(search.toLowerCase()) ||
         psicologa.especializacao.toLowerCase().includes(search.toLowerCase()) ||
@@ -55,6 +59,7 @@ export default function Index() {
                                         Apagar
                                     </button>
                                 </div>
+                                
                             )}
                             </div>
                         </div>

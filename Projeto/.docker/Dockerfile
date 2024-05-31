@@ -37,3 +37,6 @@ RUN pecl install -o -f redis \
 WORKDIR /var/www
 
 USER $user
+
+EXPOSE 9000
+CMD ["php-fpm"]

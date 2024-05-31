@@ -8,6 +8,8 @@ use App\Http\Controllers\PsicologaController;
 use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\InformacaoPacienteController;
 use Inertia\Inertia;
+use App\Http\Controllers\NotificationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -80,8 +82,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'edit'])->name('informacoes.edit');
     Route::post('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'update'])->name('informacoes.update');
 
-
-    // Rota para documentos
+    Route::get('/notify', [ClienteController::class, 'showNotifyPage'])->name('notify.page');
+    Route::post('/notify/{cliente_id}', [NotificationController::class, 'notifyPsychologist'])->name('notify.psychologist');
+        // Rota para documentos
     Route::get('/documents', function () {
         return Inertia::render('Documents');
     })->name('documents');

@@ -7,6 +7,10 @@ use App\Models\Cliente;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Psicologa;
+use App\Events\ClientArrived;
+
 
 class ClienteController extends Controller
 {
@@ -50,7 +54,7 @@ public function destroy($id)
 {
     $cliente = Cliente::findOrFail($id);
     $cliente->delete();
-    return Redirect::route('clientes.index')->with('success', 'Psicóloga atualizada com sucesso.');
+    return Redirect::route('clientes.index')->with('success', 'Cliente excluído com sucesso.');
 }
 
 public function update(Request $request, $id)
@@ -86,6 +90,28 @@ public function updateMyInfo(Request $request)
     \Log::info('Informações atualizadas com sucesso.');
 
     return Redirect::route('dashboard')->with('success', 'Informações atualizadas com sucesso.');
+}
+
+public function showNotifyPage()
+{
+    $clientes = Cliente::all(['id', 'nome']);
+    $psicologas = Psicologa::all(['id', 'nome']); // Certifique-se de que o campo correto está sendo selecionado
+    
+    return Inertia::render('NotifyPage', [
+        'clientes' => $clientes,
+        'psicologas' => $psicologas
+    ]);
+}
+
+public function notifyPsychologist(Request $request)
+{
+    $cliente = Cliente::findOrFail($request->cliente_id);
+    $psicologa = Psicologa::findOrFail($request->psicologa_id);
+
+    // Emitir o evento
+    event(new ClientArrived($cliente, $psicologa->id));
+
+    return Redirect::route('dashboard')->with('success', 'Notificação enviada para a psicóloga.');
 }
 
 }

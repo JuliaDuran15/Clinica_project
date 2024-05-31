@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "fideloper/proxy": "^4.4",
+        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.3",
         "laravel/breeze": "^1.14",
@@ -14,6 +16,8 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.5",
         "nyholm/psr7": "^1.6",
+        "psr/http-factory": "^1.1",
+        "pusher/pusher-php-server": "^7.2",
         "railsware/mailtrap-php": "^1.9",
         "symfony/http-client": "^6.2",
         "tightenco/ziggy": "^1.0"

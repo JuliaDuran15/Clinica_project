@@ -55,6 +55,17 @@ class DatabaseSeeder extends Seeder
             'nome' => $userPsicologa->name,
         ]);
 
+        $userPsicologa2 = User::create([
+            'name' => 'Luigi',
+            'email' => 'Luigi@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'psicologa',
+        ]);
+        Psicologa::create([
+            'user_id' => $userPsicologa2->id,
+            'nome' => $userPsicologa2->name,
+        ]);
+
         // Chamar o seeder de depoimentos
         $this->call([
             DepoimentoSeeder::class,
