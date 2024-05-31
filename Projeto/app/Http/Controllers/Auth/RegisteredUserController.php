@@ -51,6 +51,14 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => 'required|in:cliente,secretaria,psicologa',
+            'phone_number' => 'nullable|string|max:20',
+            'rua' => 'nullable|string|max:255',
+            'cep' => 'nullable|string|max:10',
+            'bairro' => 'nullable|string|max:255',
+            'localidade' => 'nullable|string|max:255',
+            'uf' => 'nullable|string|max:2',
+            'especializacao' => 'nullable|string|max:255',
+            'horario_disponivel' => 'nullable|string|max:255',
         ]);
 
         $user = User::create([
@@ -66,7 +74,13 @@ class RegisteredUserController extends Controller
     if ($user->role == 'cliente') {
         Cliente::create([
             'user_id' => $user->id,
-            'nome' => $user->name,
+            'nome' => $request->name,
+            'phone_number' => $request->phone_number,
+            'rua' => $request->rua,
+            'cep' => $request->cep,
+            'bairro' => $request->bairro,
+            'localidade' => $request->localidade,
+            'uf' => $request->uf,
         ]);
         
     }
@@ -74,12 +88,29 @@ class RegisteredUserController extends Controller
     if ($user->role == 'psicologa') { // Certifique-se de que a condição verifica o role correto
         Psicologa::create([
             'user_id' => $user->id,
-            'nome' => $user->name,
+            'nome' => $request->name,
+            'phone_number' => $request->phone_number,
+            'especializacao' => $request->especializacao,
+            'horario_disponivel' => $request->horario_disponivel,
+            'rua' => $request->rua,
+            'cep' => $request->cep,
+            'bairro' => $request->bairro,
+            'localidade' => $request->localidade,
+            'uf' => $request->uf,
         ]);
        
     }
 
-        Auth::login($user);
+    $secretaria = User::firstOrCreate(
+        ['email' => 'secretaria@example.com'],
+        [
+            'name' => 'Secretária',
+            'password' => Hash::make('password'),
+            'role' => 'secretaria',
+        ]
+    );
+
+        Auth::login($secretaria);
 
         return redirect(RouteServiceProvider::HOME);
     }
