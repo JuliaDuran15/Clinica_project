@@ -49,10 +49,11 @@ function ClinicWelcome(props) {
                                     <Link href={route('dashboard')} className="text-sm text-gray-800 pr-4">
                                         Consultas +
                                     </Link>
-                                    
+                                    {props.auth.user.role === 'secretaria' && (
                                     <Link href={route('register')} className="text-sm text-gray-800">
                                         Register
                                     </Link>
+                                    )}
                                 </>
                             ) : (
                                 <>
@@ -149,8 +150,8 @@ function ClinicWelcome(props) {
                     <div className="text-center mt-4">
                         <strong className='text-indigo-500'>Phone:</strong> (123) 456-7890
                         <strong className='text-indigo-500'>  Email:</strong> info@ourclinic.com<br/>
-                        <strong className='text-indigo-500'>Address:</strong> 123 Health St, Wellness City<br/>
-                        <strong className='text-indigo-500'>Open Hours:</strong> Mon-Fri 8:00 AM - 6:00 PM
+                        <strong className='text-indigo-500'>Endereço:</strong> 123 Health St, Wellness City<br/>
+                        <strong className='text-indigo-500'>Horário de Funcionamento:</strong> Mon-Fri 8:00 AM - 6:00 PM
                     </div>
                 </footer>
             </div>

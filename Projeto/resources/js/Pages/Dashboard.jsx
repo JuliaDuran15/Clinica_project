@@ -37,14 +37,21 @@ export default function Dashboard() {
                     )} 
 
                 {auth.user && auth.user.role === 'secretaria' && (
+                    <>
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className="block p-6 bg-white border-b border-gray-200 hover:transition duration-200 ease-in-out transform hover:scale-105">
                             <h3 className="text-lg font-semibold text-gray-700">BOM TRABALHO!</h3>
                             </div>
                         </div>
+                    
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-6">
+                        <InertiaLink href={route('notify.page')} className="block p-6 bg-indigo-500 text-white border-b border-gray-200 hover:bg-indigo-600 transition duration-200 ease-in-out transform hover:scale-105">
+                            Enviar Notificação de Chegada
+                        </InertiaLink>
                     </div>
-
+                </div>
+                </>
                 )}
                 </div>
             </div>
