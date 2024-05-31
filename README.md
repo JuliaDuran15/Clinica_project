@@ -59,17 +59,11 @@ cd Projeto
 npm install
 ```
 ```sh
-npm install react
-```
-```sh
 npm run dev
 ```
 Em outro terminal:
 ```sh
 npm install
-```
-```sh
-npm install electron
 ```
 ```sh
 npm start
