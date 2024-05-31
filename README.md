@@ -67,9 +67,6 @@ npm install
 npm install electron
 ```
 ```sh
-npm install electron
-```
-```sh
 npm start
 ```
 Acesse o projeto
