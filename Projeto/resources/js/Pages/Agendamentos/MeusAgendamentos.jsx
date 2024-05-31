@@ -4,9 +4,18 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 export default function MeusAgendamentos({ agendamentos, auth, errors, cliente }) {
     const today = new Date();
-    const agendamentosPassados = agendamentos.filter(agendamento => new Date(agendamento.data) < today).sort((a, b) => new Date(a.data) - new Date(b.data));
-    const agendamentosFuturos = agendamentos.filter(agendamento => new Date(agendamento.data) >= today).sort((a, b) => new Date(a.data) - new Date(b.data));
 
+    const parseDateTime = (date, time) => {
+        return new Date(`${date}T${time}`);
+    };
+    const agendamentosPassados = agendamentos
+        .filter(agendamento => parseDateTime(agendamento.data, agendamento.hora) < today)
+        .sort((a, b) => parseDateTime(a.data, a.hora) - parseDateTime(b.data, b.hora));
+    
+    const agendamentosFuturos = agendamentos
+        .filter(agendamento => parseDateTime(agendamento.data, agendamento.hora) >= today)
+        .sort((a, b) => parseDateTime(a.data, a.hora) - parseDateTime(b.data, b.hora));
+    
     return (
         <AuthenticatedLayout auth={auth} errors={errors}>
             <div className="max-w-7xl mx-auto p-6 bg-white shadow-lg rounded-lg">

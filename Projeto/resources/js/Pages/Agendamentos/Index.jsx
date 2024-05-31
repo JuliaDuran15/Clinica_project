@@ -6,14 +6,19 @@ import { Inertia } from '@inertiajs/inertia';
 export default function Index({ agendamentos, auth, errors }) {
     const today = new Date();
 
+    // Função auxiliar para converter data e hora em um objeto Date
+    const parseDateTime = (date, time) => {
+        return new Date(`${date}T${time}`);
+    };
+
     // Separar os agendamentos passados e futuros
     const agendamentosPassados = agendamentos
-        .filter(agendamento => new Date(agendamento.data) < today)
-        .sort((a, b) => new Date(a.data) - new Date(b.data));
+        .filter(agendamento => parseDateTime(agendamento.data, agendamento.hora) < today)
+        .sort((a, b) => parseDateTime(a.data, a.hora) - parseDateTime(b.data, b.hora));
     
     const agendamentosFuturos = agendamentos
-        .filter(agendamento => new Date(agendamento.data) >= today)
-        .sort((a, b) => new Date(a.data) - new Date(b.data));
+        .filter(agendamento => parseDateTime(agendamento.data, agendamento.hora) >= today)
+        .sort((a, b) => parseDateTime(a.data, a.hora) - parseDateTime(b.data, b.hora));
 
     const handleDelete = (id) => {
         if (confirm('Você tem certeza que deseja excluir este agendamento?')) {

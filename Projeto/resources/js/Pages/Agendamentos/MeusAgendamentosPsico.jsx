@@ -3,10 +3,17 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 export default function meusAgendamentosPsicologa({ agendamentos, auth, errors }) {
-    const today = new Date();
-    const agendamentosPassados = agendamentos.filter(agendamento => new Date(agendamento.data) < today).sort((a, b) => new Date(a.data) - new Date(b.data));
-    const agendamentosFuturos = agendamentos.filter(agendamento => new Date(agendamento.data) >= today).sort((a, b) => new Date(a.data) - new Date(b.data));
-
+    const parseDateTime = (date, time) => {
+        return new Date(`${date}T${time}`);
+    };
+    const agendamentosPassados = agendamentos
+        .filter(agendamento => parseDateTime(agendamento.data, agendamento.hora) < today)
+        .sort((a, b) => parseDateTime(a.data, a.hora) - parseDateTime(b.data, b.hora));
+    
+    const agendamentosFuturos = agendamentos
+        .filter(agendamento => parseDateTime(agendamento.data, agendamento.hora) >= today)
+        .sort((a, b) => parseDateTime(a.data, a.hora) - parseDateTime(b.data, b.hora));
+    
     if (agendamentos.length === 0) {
         return (
             <AuthenticatedLayout auth={auth} errors={errors}>
