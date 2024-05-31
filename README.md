@@ -33,16 +33,21 @@ Instalar as dependências do projeto
 ```sh
 composer install
 ```
+
 ```sh
 php artisan migrate
 ```
+
 ```sh
 composer require railsware/mailtrap-php symfony/http-client nyholm/psr7
 ```
+
 ```sh
 php artisan migrate:fresh --seed --env=testing
 ```
+
 Gerar a key do projeto Laravel
+
 ```sh
 php artisan key:generate
 ```
@@ -69,6 +74,7 @@ npm install electron
 ```sh
 npm start
 ```
+
 Acesse o projeto
 [http://localhost:8080](http://localhost:8080)
 
