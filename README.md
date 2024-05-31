@@ -44,10 +44,12 @@ php artisan migrate
 composer require railsware/mailtrap-php symfony/http-client nyholm/psr7
 ```
 
-Gerar a key do projeto Laravel
 ```sh
 php artisan migrate:fresh --seed --env=testing
 ```
+
+Gerar a key do projeto Laravel
+
 ```sh
 php artisan key:generate
 ```
