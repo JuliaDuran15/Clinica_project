@@ -4,7 +4,8 @@ import { Inertia } from '@inertiajs/inertia';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 export default function Index(props) {
-    const { clientes } = usePage().props;
+    const { clientes,auth,errors } = usePage().props;
+
     const { data, setData, post, processing } = useForm({ nome: "" });
     const [search, setSearch] = useState("");  // Estado para controlar o valor da busca
 
@@ -12,14 +13,14 @@ export default function Index(props) {
         if (confirm("Tem certeza que deseja apagar este cliente?")) {
             Inertia.delete(`/clientes/${id}`);
         }
-    }
+    }    
 
     const filteredClientes = clientes.filter(cliente =>
         cliente.nome.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
-        <AuthenticatedLayout auth={props.auth} errors={props.errors}>
+        <AuthenticatedLayout auth={auth} errors={errors}>
             <div className="max-w-6xl mx-auto p-8 bg-white shadow-lg rounded-lg">
                 <h1 className="text-2xl font-semibold text-gray-800 mb-6">Paciente</h1>
                 
@@ -49,15 +50,19 @@ export default function Index(props) {
                                         <p className="text-sm text-gray-800">Endereço: {cliente.rua}, {cliente.bairro}, {cliente.localidade}, {cliente.uf} - {cliente.cep}</p>
                                     </td>
                                     <td className="py-4 px-6">
+                                    {auth.user && auth.user.role !== 'cliente' && (
+                                        
                                         <InertiaLink href={`/clientes/${cliente.id}/edit`}
                                             className="font-medium text-blue-600 hover:text-blue-800 mr-3">Editar</InertiaLink>
+                                            )}
+                                    {auth.user && auth.user.role === 'secretaria' && (
                                         <button onClick={() => handleDelete(cliente.id)}
                                             disabled={processing}
                                             className="text-red-500 hover:text-red-700 disabled:text-gray-300 mr-3">
                                             Apagar
                                         </button>
-                                        <InertiaLink href={`/clientes/${cliente.id}/informacoes`}
-                                            className="font-medium text-green-600 hover:text-green-800">Mais Informações</InertiaLink>
+                                        
+                                    )}
                                     </td>
                                 </tr>
                             ))}

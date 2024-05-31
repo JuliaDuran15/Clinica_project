@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
         // Criação de um usuário com o role 'secretaria'
@@ -25,29 +20,28 @@ class DatabaseSeeder extends Seeder
             'role' => 'secretaria',
         ]);
 
-        // Criação de um usuário com o role 'cliente' e registro correspondente em Cliente
-        $userCliente = User::create([
+        // Criação de usuários com o role 'cliente' e registros correspondentes em Cliente
+        $userCliente1 = User::create([
             'name' => 'Julia Duran',
             'email' => 'juliaDuran@example.com',
             'password' => Hash::make('password'),
             'role' => 'cliente',
         ]);
         Cliente::create([
-            'user_id' => $userCliente->id,
-            'nome' => $userCliente->name,
+            'user_id' => $userCliente1->id,
+            'nome' => $userCliente1->name,
         ]);
 
-        $userCliente = User::create([
+        $userCliente2 = User::create([
             'name' => 'Thayna Aquino',
             'email' => 'thayaquino@example.com',
             'password' => Hash::make('password'),
             'role' => 'cliente',
         ]);
         Cliente::create([
-            'user_id' => $userCliente->id,
-            'nome' => $userCliente->name,
+            'user_id' => $userCliente2->id,
+            'nome' => $userCliente2->name,
         ]);
-
 
         // Criação de um usuário com o role 'psicologa' e registro correspondente em Psicologa
         $userPsicologa = User::create([
@@ -59,6 +53,12 @@ class DatabaseSeeder extends Seeder
         Psicologa::create([
             'user_id' => $userPsicologa->id,
             'nome' => $userPsicologa->name,
+        ]);
+
+        // Chamar o seeder de depoimentos
+        $this->call([
+            DepoimentoSeeder::class,
+            AgendamentoSeeder::class,
         ]);
     }
 }

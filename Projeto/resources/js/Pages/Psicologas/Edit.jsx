@@ -1,8 +1,10 @@
 import React, { useState , useEffect } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import InputMask from 'react-input-mask';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function Edit({ psicologa }) {
+
+export default function Edit({ psicologa , auth, errors  }) {
     const [nome, setNome] = useState(psicologa.nome);
     const [especializacao, setEspecializacao] = useState(psicologa.especializacao);
     const [horarioDisponivel, setHorarioDisponivel] = useState(psicologa.horario_disponivel);
@@ -47,6 +49,8 @@ export default function Edit({ psicologa }) {
     }
 
     return (
+        <AuthenticatedLayout auth={auth} errors={errors}>
+
         <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
             <h1 className="text-xl font-semibold text-gray-700 mb-5">Editar Psicóloga</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
@@ -101,28 +105,25 @@ export default function Edit({ psicologa }) {
                     </label>
                 </div>
 
-                {/* Rua, CEP, Bairro, Localidade, UF continuam com a mesma estrutura usando <input> diretamente como mostrado acima */}
-                                {/* Rua */}
-                                <div className="col-span-2 sm:col-span-1">
+                {/* CEP */}
+                <div className="col-span-2 sm:col-span-1">
+                    <label className="block text-sm font-medium text-gray-700">
+                        CEP (Somente números)
+                        <input
+                            type="text"
+                            value={cep}
+                            onChange={(e) => setCep(e.target.value)}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                    </label>
+                </div>
+                    <div className="col-span-2 sm:col-span-1">
                     <label className="block text-sm font-medium text-gray-700">
                         Rua
                         <input
                             type="text"
                             value={rua}
                             onChange={(e) => setRua(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        />
-                    </label>
-                </div>
-
-                {/* CEP */}
-                <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-sm font-medium text-gray-700">
-                        CEP
-                        <input
-                            type="text"
-                            value={cep}
-                            onChange={(e) => setCep(e.target.value)}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                     </label>
@@ -177,5 +178,6 @@ export default function Edit({ psicologa }) {
                     </div>
                 </form>
             </div>
+            </AuthenticatedLayout>
         );
     }

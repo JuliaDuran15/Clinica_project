@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { Head, Link } from '@inertiajs/inertia-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { Head, Link, usePage } from '@inertiajs/inertia-react';
 import { Inertia } from '@inertiajs/inertia';
 
 function ClinicWelcome(props) {
     const [activeTab, setActiveTab] = useState('services');
+    const [depoimentos, setDepoimentos] = useState([]);
 
     // Referências para os campos do formulário
     const emailRef = useRef('');
@@ -23,6 +24,19 @@ function ClinicWelcome(props) {
         });
     };
 
+    useEffect(() => {
+        if (activeTab === 'testimonials') {
+            fetch('/random-depoimentos')
+                .then(response => response.json())
+                .then(data => setDepoimentos(data))
+                .catch(error => {
+                    console.error('Erro ao carregar depoimentos', error);
+                    alert('Erro ao carregar depoimentos.');
+                });
+        }
+    }, [activeTab]);
+
+
     return (
         <>
             <Head title="Welcome to Our Health Clinic" />
@@ -31,17 +45,21 @@ function ClinicWelcome(props) {
                     <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                         <div>
                             {props.auth.user ? (
-                                <Link href={route('dashboard')} className="text-sm text-gray-800 pr-4">
-                                    Consultas +
-                                </Link>
+                                <>
+                                    <Link href={route('dashboard')} className="text-sm text-gray-800 pr-4">
+                                        Consultas +
+                                    </Link>
+                                    
+                                    <Link href={route('register')} className="text-sm text-gray-800">
+                                        Register
+                                    </Link>
+                                </>
                             ) : (
                                 <>
                                     <Link href={route('login')} className="text-sm text-gray-800 pr-4">
                                         Log in
                                     </Link>
-                                    <Link href={route('register')} className="text-sm text-gray-800">
-                                        Register
-                                    </Link>
+                                   
                                 </>
                             )}
                         </div>
@@ -74,9 +92,15 @@ function ClinicWelcome(props) {
                     {activeTab === 'testimonials' && (
                         <div className="text-center">
                             <h2 className="text-xl font-semibold text-indigo-500">Depoimentos</h2>
-                            <p className="text-gray-600 mt-4">
-                                "Nunca me senti tão compreendido e apoiado. A terapia transformou minha vida e recomendo esta clínica a todos que buscam paz e equilíbrio emocional." Descubra mais histórias de sucesso e transformações pessoais alcançadas através do nosso trabalho dedicado e especializado.
-                            </p>
+                            {depoimentos.length > 0 ? (
+                                depoimentos.map(depoimento => (
+                                    <p key={depoimento.id} className="text-gray-600 mt-4">
+                                        "{depoimento.mensagem}" 
+                                    </p>
+                                ))
+                            ) : (
+                                <p className="text-gray-600 mt-4">Ainda não temos depoimentos para mostrar.</p>
+                            )}
                         </div>
                     )}
                     {activeTab === 'contact' && (

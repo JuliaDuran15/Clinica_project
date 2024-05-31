@@ -9,11 +9,13 @@ class InformacaoPaciente extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'agendamento_id',
+        'informacoes',
+    ];
 
-    // Relação com o modelo Cliente
-    public function cliente()
+    public function agendamento()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Agendamento::class);
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('informacao_pacientes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained()->onDelete('cascade'); // Referencia a tabela clientes
+            $table->foreignId('agendamento_id')->constrained('agendamentos')->onDelete('cascade'); // Referencia a tabela agendamentos
             $table->text('informacoes'); // Campo para armazenar informações detalhadas
             $table->timestamps();
         });

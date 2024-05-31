@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\Psicologa; // Usando o modelo Psicologa
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+
 
 class PsicologaController extends Controller
 {
@@ -78,4 +80,35 @@ class PsicologaController extends Controller
         $psicologa->delete();
         return redirect()->back();
     }
+
+    public function showMyInfo()
+    {
+        $psicologa = Psicologa::where('user_id', Auth::id())->first();
+        return Inertia::render('Psicologas/MyInfoPsico', ['psicologa' => $psicologa]);
+    }
+    
+    
+    public function updateMyInfo(Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'especializacao' => 'nullable|string',
+            'horario_disponivel' => 'nullable|string',
+            'phone_number' => 'nullable|string|max:20',
+            'rua' => 'nullable|string|max:255',
+            'cep' => 'nullable|string|max:10',
+            'bairro' => 'nullable|string|max:255',
+            'localidade' => 'nullable|string|max:255',
+            'uf' => 'nullable|string|max:2',
+        ]);
+    
+        $psicologa = Psicologa::where('user_id', Auth::id())->firstOrFail();
+        $psicologa->update($request->all());
+    
+            
+        \Log::info('Informações atualizadas com sucesso.');
+    
+        return Redirect::route('dashboard')->with('success', 'Informações atualizadas com sucesso.');
+    }
+    
 }

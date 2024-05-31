@@ -22,8 +22,17 @@ class RegisteredUserController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if (Auth::check()) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+             // Redirect to the register page after logout
+             return redirect()->route('register');
+        }
+        
         return Inertia::render('Auth/Register');
     }
 
@@ -59,6 +68,7 @@ class RegisteredUserController extends Controller
             'user_id' => $user->id,
             'nome' => $user->name,
         ]);
+        
     }
 
     if ($user->role == 'psicologa') { // Certifique-se de que a condição verifica o role correto
@@ -66,6 +76,7 @@ class RegisteredUserController extends Controller
             'user_id' => $user->id,
             'nome' => $user->name,
         ]);
+       
     }
 
         Auth::login($user);

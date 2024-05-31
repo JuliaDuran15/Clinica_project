@@ -21,4 +21,9 @@ class Agendamento extends Model
     {
         return $this->belongsTo(Psicologa::class);
     }
+
+    public function informacaoPaciente()
+    {
+        return $this->hasOne(InformacaoPaciente::class);
+    }
 }

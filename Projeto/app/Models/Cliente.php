@@ -24,10 +24,6 @@ class Cliente extends Model
         return $this->hasMany(Depoimento::class);
     }
 
-    public function informacoesAdicionais()
-    {
-        return $this->hasOne(InformacaoPaciente::class);
-    }
 
     protected static function booted() {
         static::deleted(function ($cliente) {
