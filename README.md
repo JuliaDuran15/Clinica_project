@@ -4,13 +4,13 @@ Este código refere-se a um site que gerencia pacientes, psicólogos e uma secre
 # Laravel Template
 
 ### Passo a passo
-Clone Repositório criado a partir do template, entre na pasta e execute os comandos abaixo:
+- Clone Repositório criado a partir do template, entre na pasta e execute os comandos abaixo:
 Entre na pasta:
 ```sh
 cd Projeto
 ```
 
-Crie o Arquivo .env
+- Crie o Arquivo .env
 ```sh
 cp .env.example .env
 ```
@@ -23,7 +23,7 @@ APP_URL=http://localhost:8080
 DB_PASSWORD=root
 ```
 
-Suba os containers do projeto
+- Suba os containers do projeto
 ```sh
 docker compose up -d
 ```
@@ -48,7 +48,7 @@ composer require railsware/mailtrap-php symfony/http-client nyholm/psr7
 php artisan migrate:fresh --seed --env=testing
 ```
 
-Gerar a key do projeto Laravel
+- Gerar a key do projeto Laravel
 
 ```sh
 php artisan key:generate
