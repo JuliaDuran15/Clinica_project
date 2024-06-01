@@ -1,3 +1,5 @@
+# Site Clinica de Psicologia
+Este código refere-se a um site que gerencia pacientes, psicólogos e uma secretaria, onde cada usuário possui seu próprio login e interface, adaptados às suas funções específicas. Há uma aba de cadastro com permissões distintas e funcionalidades específicas para cada tipo de usuário. Foi adicionada uma funcionalidade de notificação através do Electron, utilizando os controllers nativos do Laravel.
 
 # Laravel Template
 
