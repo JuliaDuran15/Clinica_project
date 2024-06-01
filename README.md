@@ -4,7 +4,7 @@ Este código refere-se a um site que gerencia pacientes, psicólogos e uma secre
 # Laravel Template
 
 ### Passo a passo
-** *Clone o repositório criado a partir do template, entre na pasta e execute os comandos abaixo.* **
+***Clone o repositório criado a partir do template, entre na pasta e execute os comandos abaixo.***
 
 *Entre na pasta:*
 ```sh
