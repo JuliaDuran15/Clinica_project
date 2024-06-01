@@ -10,12 +10,12 @@ Entre na pasta:*
 cd Projeto
 ```
 
-Crie o Arquivo .env
+*Crie o Arquivo .env:*
 ```sh
 cp .env.example .env
 ```
 
-Atualize as variáveis de ambiente do arquivo .env
+*Atualize as variáveis de ambiente do arquivo .env:*
 ```dosini
 APP_NAME=Laravel
 APP_URL=http://localhost:8080
@@ -23,15 +23,15 @@ APP_URL=http://localhost:8080
 DB_PASSWORD=root
 ```
 
-- Suba os containers do projeto
+*Suba os containers do projeto:*
 ```sh
 docker compose up -d
 ```
-Acessar o container
+*Acesse o container:*
 ```sh
 docker compose exec app bash
 ```
-Instalar as dependências do projeto
+*Instale as dependências do projeto:*
 ```sh
 composer install
 ```
@@ -48,12 +48,12 @@ composer require railsware/mailtrap-php symfony/http-client nyholm/psr7
 php artisan migrate:fresh --seed --env=testing
 ```
 
-- Gerar a key do projeto Laravel
+*Para gerar a key do projeto Laravel:*
 
 ```sh
 php artisan key:generate
 ```
-Fora do terminal do laravel (em outra aba de terminal de preferencia)
+*Fora do terminal do laravel (em outra aba de terminal de preferencia):*
 ```sh
 cd Projeto
 ```
@@ -63,7 +63,7 @@ npm install
 ```sh
 npm run dev
 ```
-Em outro terminal:
+*Em outro terminal:*
 ```sh
 npm install
 ```
@@ -71,9 +71,9 @@ npm install
 npm start
 ```
 
-Acesse o projeto
+**Acesse o projeto ->**
 [http://localhost:8080](http://localhost:8080)
 
-Acesse o phpmyadmin
+**Acesse o phpmyadmin ->**
 [http://localhost:8081](http://localhost:8081)
 
