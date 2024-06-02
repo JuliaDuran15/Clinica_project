@@ -82,9 +82,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'edit'])->name('informacoes.edit');
     Route::post('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'update'])->name('informacoes.update');
 
+    // Rotas para notificações
     Route::get('/notify', [ClienteController::class, 'showNotifyPage'])->name('notify.page');
     Route::post('/notify/{cliente_id}', [NotificationController::class, 'notifyPsychologist'])->name('notify.psychologist');
-        // Rota para documentos
+    // Rota para documentos
     Route::get('/documents', function () {
         return Inertia::render('Documents');
     })->name('documents');
