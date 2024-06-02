@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -25,6 +26,7 @@ class ClientArrived implements ShouldBroadcast
     {
         return new PrivateChannel('notifications.psicologa.' . $this->psicologaId);
     }
+
     public function broadcastWith()
     {
         return ['cliente' => $this->cliente];
