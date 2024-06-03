@@ -89,6 +89,11 @@ docker stack services meu_servico
 docker service logs meu_servico_app
 ```
 
+
+**Atas de Reuniao ->**
+https://1drv.ms/w/s!AsvKVHkTodIsh855WWho8Vn_kmGR1A
+
+
 **Acesse o projeto ->**
 [http://localhost:8080](http://localhost:8080)
 
