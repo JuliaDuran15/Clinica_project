@@ -54,6 +54,10 @@ php artisan migrate:fresh --seed --env=testing
 ```sh
 php artisan key:generate
 ```
+*Para fazer os testes:*
+```sh
+php artisan teste
+```
 *Fora do terminal do laravel (em outra aba de terminal de preferencia):*
 ```sh
 cd Projeto
@@ -72,10 +76,16 @@ npm install
 npm start
 ```
 *Para gerenciar os containers:*
-```
+```sh
 docker swarm init
+```
+```sh
 docker stack deploy -c docker-stack.yml meu_servico
+```
+```sh
 docker stack services meu_servico
+```
+```sh
 docker service logs meu_servico_app
 ```
 
