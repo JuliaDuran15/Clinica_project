@@ -5,6 +5,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import Dropdown from '@/Components/Dropdown';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import logoImage from '../../../public/logo.jpg';
+import NotificationListener from '@/Components/NotificationListener';
 
 export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -173,6 +174,10 @@ export default function Authenticated({ auth, header, children }) {
                     </div>
                 </div>
             </nav>
+
+            {auth.user && auth.user.role === 'psicologa' && (
+                <NotificationListener userId={auth.user.id} />
+            )}
 
             {header && (
                 <header className="bg-white shadow">

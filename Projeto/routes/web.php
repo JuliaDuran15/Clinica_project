@@ -83,7 +83,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/clientes/{clienteId}/informacoes', [InformacaoPacienteController::class, 'update'])->name('informacoes.update');
 
     Route::get('/notify', [ClienteController::class, 'showNotifyPage'])->name('notify.page');
-    Route::post('/notify/{cliente_id}', [NotificationController::class, 'notifyPsychologist'])->name('notify.psychologist');
+    Route::post('/notify/{cliente_id}', [NotificationController::class, 'notifyClientArrival'])->name('notify.psychologist');
         // Rota para documentos
     Route::get('/documents', function () {
         return Inertia::render('Documents');
