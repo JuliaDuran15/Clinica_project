@@ -1,3 +1,4 @@
+// src/Components/NotificationListener.jsx
 import React, { useEffect } from 'react';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
@@ -6,9 +7,10 @@ const NotificationListener = ({ userId }) => {
     useEffect(() => {
         const echo = new Echo({
             broadcaster: 'pusher',
-            key: process.env.MIX_PUSHER_APP_KEY,
-            cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-            forceTLS: true,
+            key: import.meta.env.VITE_PUSHER_APP_KEY,
+            cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+            forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
+            encrypted: true,
         });
 
         echo.private(`notifications.psicologa.${userId}`)
