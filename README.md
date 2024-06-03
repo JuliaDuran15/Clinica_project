@@ -71,6 +71,13 @@ npm install
 ```sh
 npm start
 ```
+*Para gerenciar os containers:*
+```
+docker swarm init
+docker stack deploy -c docker-stack.yml meu_servico
+docker stack services meu_servico
+docker service logs meu_servico_app
+```
 
 **Acesse o projeto ->**
 [http://localhost:8080](http://localhost:8080)
