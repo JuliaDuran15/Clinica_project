@@ -56,7 +56,7 @@ php artisan key:generate
 ```
 *Para fazer os testes:*
 ```sh
-php artisan teste
+php artisan test
 ```
 *Fora do terminal do laravel (em outra aba de terminal de preferencia):*
 ```sh
