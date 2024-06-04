@@ -70,7 +70,7 @@ npm install
 ```sh
 npm run dev
 ```
-*Em outro terminal:*
+*Em outro terminal e fora da pasta Projeto:*
 ```sh
 npm install
 ```
