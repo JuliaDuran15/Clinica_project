@@ -58,9 +58,6 @@ php artisan test
 ```
 *Após fazer os testes:*
 ```sh
-php artisan migrate:fresh --seed --env=testing
-```
-```sh
 php artisan migrate:fresh --seed
 ```
 *Fora do terminal do laravel (em outra aba de terminal de preferencia):*
