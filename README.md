@@ -82,13 +82,19 @@ npm start
 docker swarm init
 ```
 ```sh
-docker stack deploy -c docker-stack.yml meu_servico
+docker network create --driver overlay mynetwork
 ```
 ```sh
-docker stack services meu_servico
+docker stack deploy -c docker-stack.yml my_stack
 ```
 ```sh
-docker service logs meu_servico_app
+docker stack services my_stack
+```
+```sh
+docker service logs my_stack_app
+```
+```sh
+docker exec -it $(docker ps --filter "name=my_stack_app" -q) /bin/bash
 ```
 
 
