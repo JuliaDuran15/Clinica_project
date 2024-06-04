@@ -55,6 +55,7 @@ php artisan migrate:fresh --seed --env=testing
 php artisan key:generate
 ```
 *Para fazer os testes:*
+Somente após dar o comando "npm run dev".
 ```sh
 php artisan test
 ```
